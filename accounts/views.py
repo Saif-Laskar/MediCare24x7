@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
-
+from .utils import *
 from .forms import *
 
 
@@ -86,3 +86,43 @@ def patient_dashboard_view(request):
         'profile': profile,  # The patient's profile
     }
     return render(request, 'accounts/patient-dashboard.html', context)
+
+def patient_profile_view(request,pk):
+
+    is_self= False
+
+    user =UserModel.objects.get(id=pk)
+
+    if request.user == user:
+        is_self= True
+
+    has_access=True
+
+    profile = PatientModel.objects.get(user=user)
+
+    date_joined= calc_age(user.date_joined)
+
+    age = None
+    if profile.date_of_birth:
+        age= calc_age(profile.date_of_birth)
+
+    incomplete_profile = False
+    if not profile.gender or not profile.blood_group or not profile.date_of_birth or not \
+            profile.phone or not profile.height or not profile.weight or not profile.address:
+        incomplete_profile = True
+
+    context={
+        'user':user,
+        'is_self':is_self,
+        'has_access':has_access,
+        'profile':profile,
+        'date_joined':date_joined,
+        'age':age,
+
+
+    }
+
+    return render(request,"accounts/patient-profile.html",context)
+
+
+

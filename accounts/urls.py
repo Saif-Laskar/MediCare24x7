@@ -9,6 +9,8 @@ urlpatterns = [
     path('accounts/patient-signup', patient_signup_view, name='signup'),  # patient registration
 
 
-    path('accounts/patient-dashboard', patient_dashboard_view, name='patient-dashboard'),  # patient dashboard
+    path('accounts/patient-dashboard', patient_dashboard_view, name='patient-dashboard'),# patient dashboard
+    path('accounts/patient-profile', patient_profile_view, name='patient-profile'),
+
 ]
 
