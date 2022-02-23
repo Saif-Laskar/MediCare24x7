@@ -27,7 +27,7 @@ def login_view(request):  # Log a user in
                 login(request, user)  # Log them in
                 if request.GET.get('next'):  # If there is a next page
                     return redirect(request.GET.get('next'))  # Redirect to the next page
-                return redirect('home')  # Redirect to the patient dashboard
+                return redirect('patient-dashboard')  # Redirect to the patient dashboard
             else:  # If the user doesn't exist
                 messages.error(request, 'Email or Password is incorrect.')  # Display an error message
                 return redirect('login')  # Redirect to the login page
@@ -61,7 +61,7 @@ def patient_signup_view(request):  # The patient signup page
             print(user)
             PatientModel.objects.create(user=user)  # Create a patient model for the user
             login(request, user)  # Log the user in
-            return redirect('home')  # Redirect to the patient dashboard
+            return redirect('patient-dashboard')  # Redirect to the patient dashboard
         else:  # The form is invalid
             print("Invalid")
             context = {  # Context to render the form
@@ -76,3 +76,14 @@ def patient_signup_view(request):  # The patient signup page
         'patient_form': patient_form  # The form
     }
     return render(request, 'accounts/signup.html', context)  # Render the signup page
+
+def patient_dashboard_view(request):
+    user = request.user  # Get the user
+    profile = PatientModel.objects.get(user=user)  # Get the patient's profile
+
+    context = {  # Context to render the view
+        'user': user,  # The user
+        'profile': profile,  # The patient's profile
+    }
+    return render(request, 'accounts/patient-dashboard.html', context)
+
