@@ -76,3 +76,13 @@ def patient_signup_view(request):  # The patient signup page
         'patient_form': patient_form  # The form
     }
     return render(request, 'accounts/signup.html', context)  # Render the signup page
+
+def patient_dashboard_view(request):
+    user = request.user  # Get the user
+    profile = PatientModel.objects.get(user=user)  # Get the patient's profile
+
+    context = {  # Context to render the view
+        'user': user,  # The user
+        'profile': profile,  # The patient's profile
+    }
+    return render(request, 'accounts/patient-dashboard.html', context)

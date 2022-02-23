@@ -8,4 +8,7 @@ urlpatterns = [
     path('accounts/logout', logout_view, name='logout'),  # logout
     path('accounts/patient-signup', patient_signup_view, name='signup'),  # patient registration
 
-    ]
+
+    path('accounts/patient-dashboard', patient_dashboard_view, name='patient-dashboard'),  # patient dashboard
+]
+
