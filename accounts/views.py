@@ -177,3 +177,38 @@ def patient_profile_view(request,pk): # The patient profile page
 
 
 
+def add_doctor_view(request):  # The doctor signup page
+    """
+    This view will render the doctor user adding page.
+    :param request: The HTTP request
+
+    This view renders a doctor signup form and then takes in an email and a password.
+    if the email and password is authentic then logs in the user otherwise shows an error.
+
+    :return: renders the doctor signup page
+    """
+    if request.method == "POST":  # If the form has been submitted...
+        doctor_form = DoctorRegistrationForm(request.POST)  # A form bound to the POST data
+        if doctor_form.is_valid():  # All validation rules pass
+            doctor_form.save()  # Save the form
+            email = request.POST['email']  # Get the email
+            password = request.POST['password1']  # Get the password
+            user = authenticate(request, email=email, password=password)  # Authenticate the user
+            user.is_doctor = True
+            user.save()  # Save the user
+            DoctorModel.objects.create(user=user)  # Create a doctor record for the user
+            messages.success(request, 'Docotor Registration successfully registered!')
+            return redirect('staff-dashboard')  # Redirect to the staff dashboard
+        else:  # The form is invalid
+            context = {  # Context to render the form
+                'doctor_form': doctor_form  # The form
+            }
+            return render(request, 'accounts/add-doctor.html', context)  # Render the signup page
+    else:  # The form has not been submitted
+        doctor_form = DoctorRegistrationForm()  # An unbound form
+
+    context = {  # Context to render the form
+        'doctor_form': doctor_form  # The form
+    }
+    return render(request, 'accounts/add-doctor.html', context)  # Render the signup page
+

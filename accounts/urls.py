@@ -14,5 +14,6 @@ urlpatterns = [
 
 
     path('accounts/staff-dashboard', staff_dashboard_view, name='staff-dashboard'),
+    path('accounts/add-doctor', add_doctor_view, name='add-doctor'),
 ]
 

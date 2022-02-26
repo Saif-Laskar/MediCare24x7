@@ -14,8 +14,8 @@ class LoginForm(forms.Form):  # LoginForm
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email Address'}))  # email
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))  # password
 
-    class Meta: 
-        model = UserModel  
+    class Meta:
+        model = UserModel
         fields = ('email', 'password')
 
     def clean(self):  # clean
@@ -45,11 +45,11 @@ class DoctorRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}),
         help_text='Re-type Password',
     )
-    check = forms.BooleanField(required=True)
+    # check = forms.BooleanField(required=True)
 
     class Meta:
         model = UserModel
-        fields = ("name", "email", "password1", "password2", "check")
+        fields = ("name", "email", "password1", "password2")
 
 
 class PatientRegistrationForm(UserCreationForm):
