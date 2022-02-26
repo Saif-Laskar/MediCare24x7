@@ -14,8 +14,8 @@ class LoginForm(forms.Form):  # LoginForm
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email Address'}))  # email
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))  # password
 
-    class Meta:
-        model = UserModel
+    class Meta: 
+        model = UserModel  
         fields = ('email', 'password')
 
     def clean(self):  # clean
@@ -73,5 +73,20 @@ class PatientRegistrationForm(UserCreationForm):
     )
 
     class Meta:
-        model = UserModel  # UserModel
-        fields = ("name", "email", "password1", "password2")  # fields
+        model = UserModel
+        fields = ("name", "email", "password1", "password2")
+
+
+class PatientEditProfileForm(ModelForm):
+    # image = forms.ImageField(
+    #     required=False,
+    #     error_messages={'invalid': "Image files only"},
+    #     widget=forms.FileInput,
+    # ) 
+    date_of_birth = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'})) 
+    last_donation = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = PatientModel  
+        fields = '__all__' 
+        exclude = ['user'] 

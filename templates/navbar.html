@@ -41,7 +41,7 @@
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">{{ request.user }} <i
+                       aria-haspopup="true" aria-expanded="false">{{ request.user.name }} <i
                             class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
                         {% if request.user.is_doctor %}
@@ -49,9 +49,12 @@
                             <i class="far fa-user"></i> Profile</a>
                         </li>
                         {% else %}
-                        <li><a class="dropdown-item" href="{% url 'patient-profile' request.user.id %}">
-                            <i class="fas fa-user"></i> Profile</a>
-                        </li>
+                            {% if not request.user.is_staff%}
+                            <li><a class="dropdown-item" href="{% url 'patient-profile' request.user.id %}">
+                                <i class="fas fa-user"></i> Profile</a>
+                            </li>
+                            {% endif %}
+                    
                         {% endif %}
                         <li><a class="dropdown-item" href="#">
                             <i class="fas fa-cog"></i> Settings</a></li>

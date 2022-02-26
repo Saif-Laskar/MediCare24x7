@@ -10,6 +10,7 @@ def home_view(request):  # The home page
 
 
 def login_view(request):  # Log a user in
+
     if request.POST:  # If the form has been submitted...
         form = LoginForm(request.POST)  # A form bound to the POST data
         if form.is_valid():  # All validation rules pass
@@ -28,6 +29,14 @@ def login_view(request):  # Log a user in
                 if request.GET.get('next'):  # If there is a next page
                     return redirect(request.GET.get('next'))  # Redirect to the next page
                 return redirect('home')  # Redirect to the patient dashboard
+            
+            elif user and user.is_staff: # If the user exists and is a staff
+                login(request, user) # Log them in
+                if request.GET.get('next'): # If there is a next page
+                    return redirect(request.GET.get('next')) # Redirect to the next page
+                return redirect('staff-dashboard') # Redirect to the staff dashboard
+
+
             else:  # If the user doesn't exist
                 messages.error(request, 'Email or Password is incorrect.')  # Display an error message
                 return redirect('login')  # Redirect to the login page
@@ -61,7 +70,7 @@ def patient_signup_view(request):  # The patient signup page
             print(user)
             PatientModel.objects.create(user=user)  # Create a patient model for the user
             login(request, user)  # Log the user in
-            return redirect('home')  # Redirect to the patient dashboard
+            return redirect('patient-dashboard')  # Redirect to the patient dashboard
         else:  # The form is invalid
             print("Invalid")
             context = {  # Context to render the form
@@ -87,33 +96,74 @@ def patient_dashboard_view(request):
     }
     return render(request, 'accounts/patient-dashboard.html', context)
 
-def patient_profile_view(request,pk):
+def staff_dashboard_view(request):
 
-    is_self= False
+    user = request.user  # Get the user
+    context={
+        'user': user,
+    }
+    return render(request, 'accounts/staff-dashboard.html',context)
 
-    user =UserModel.objects.get(id=pk)
+def patient_profile_edit_view(request):  # The patient profile edit page
 
-    if request.user == user:
-        is_self= True
+    """
+    this view is for editing the patient profile,
+    from here the user can edit their on profile
+    after editing the profile the user will be redirected to the patient profile page
 
-    has_access=True
+    """
 
-    profile = PatientModel.objects.get(user=user)
 
-    date_joined= calc_age(user.date_joined)
+
+    user = request.user # Get the user
+    profile = PatientModel.objects.get(user=user) # Get the patient's profile
+
+    form = PatientEditProfileForm(instance=profile) # An unbound form
+
+    if request.method == 'POST': # If the form has been submitted...
+        form = PatientEditProfileForm(request.POST, request.FILES, instance= profile) # A form bound to the POST data
+
+        if form.is_valid(): # check if the form is valid
+            form.save() # save the form
+            return redirect('patient-profile',user.id) # redirect to the patient profile page
+        else: # the form is invalid
+            return redirect('patient-profile') # redirect to the patient profile page
+
+    context={   # Context to render the form
+            'form': form,  # The form
+            'profile': profile,  # The patient's profile
+    }
+
+    return render(request, 'accounts/edit-profile.html',context) # Render the edit profile page
+
+
+def patient_profile_view(request,pk): # The patient profile page
+
+    is_self= False # set the is_self variable to false
+
+    user =UserModel.objects.get(id=pk) # get the user
+
+    if request.user == user: # check if the user is the same as the user in the url
+        is_self= True # set the is_self variable to true
+
+    has_access=True #  set the has_access variable to true
+
+    profile = PatientModel.objects.get(user=user) # get the patient's profile
+
+    date_joined= calc_age(user.date_joined) # calculate the age of the user
 
     age = None
-    if profile.date_of_birth:
-        age= calc_age(profile.date_of_birth)
+    if profile.date_of_birth: # check if the patient has a date of birth
+        age= calc_age(profile.date_of_birth)    # calculate the age of the patient
 
-    incomplete_profile = False
+    incomplete_profile = False      # set the incomplete_profile variable to false
     if not profile.gender or not profile.blood_group or not profile.date_of_birth or not \
             profile.phone or not profile.height or not profile.weight or not profile.address:
-        incomplete_profile = True
+        incomplete_profile = True     # set the incomplete_profile variable to true
 
-    context={
-        'user':user,
-        'is_self':is_self,
+    context={  # Context to render the view
+        'user':user, # the user
+        'is_self':is_self, 
         'has_access':has_access,
         'profile':profile,
         'date_joined':date_joined,
@@ -123,6 +173,7 @@ def patient_profile_view(request,pk):
     }
 
     return render(request,"accounts/patient-profile.html",context)
+
 
 
 
