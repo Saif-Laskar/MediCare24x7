@@ -6,7 +6,19 @@ from .forms import *
 
 
 def home_view(request):  # The home page
-    return render(request, 'index.html')
+
+    user = request.user  # Get the user
+    if user.is_authenticated:
+
+        if user.is_patient:
+            return redirect('patient-dashboard') 
+        # elif user.is_doctor:
+        #     return redirect('doctor-dashboard') 
+        elif user.is_staff:
+            return redirect('staff-dashboard') 
+
+    else:
+        return render(request, 'index.html')
 
 
 def login_view(request):  # Log a user in
@@ -198,6 +210,9 @@ def add_doctor_view(request):  # The doctor signup page
             user.save()  # Save the user
             DoctorModel.objects.create(user=user)  # Create a doctor record for the user
             messages.success(request, 'Docotor Registration successfully registered!')
+            # context={
+            #     'messages':messages,
+            # }
             return redirect('staff-dashboard')  # Redirect to the staff dashboard
         else:  # The form is invalid
             context = {  # Context to render the form
