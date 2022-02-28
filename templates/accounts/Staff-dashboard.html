@@ -4,29 +4,17 @@
 
 {% block content %}
 
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-xl-7">
-                <div class="block">
-                    <div class="divider mb-3"></div>
-                    <span class="text-uppercase text-sm letter-spacing ">Total Health care solution</span>
-                    <h1 class="mb-3 mt-3">Keep Up the Good Work</h1>
-
-                    <p class="mb-4 pr-5">We appreciate you helping out the community. The impact you have on the
-                        people is extraordinary. We are grateful to you for such nice gesture.</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-<!-- <div class="card-deck">
-    
-</div> -->
-
-
-
-
 
 <div class="container">
+
+    {% for message in messages%}
+    
+        <div class="alert alert-success">
+            <div class="mt-5 text-center">{{message}}</div>
+        </div>
+    {% endfor %}
+
+
     <div class="mt-5 text-center"><h3>Task Whats Staff can do</h3></div>
     <div class="row mt-4 ">
         

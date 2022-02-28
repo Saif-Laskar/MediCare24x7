@@ -6,6 +6,16 @@ from .forms import *
 
 
 def home_view(request):  # The home page
+
+    user = request.user  # Get the user
+    if user.is_authenticated:
+        if user.is_patient:
+            return redirect('patient-dashboard')
+        elif user.is_doctor:
+            return redirect('doctor-dashboard')
+        elif user.is_staff or user.is_admin:
+            return redirect('staff-dashboard')
+
     return render(request, 'index.html')
 
 
