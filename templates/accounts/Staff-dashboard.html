@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<div class="container">
+
+    {% for message in messages%}
+    
+        <div class="alert alert-success">
+            <div class="mt-5 text-center">{{message}}</div>
+        </div>
+    {% endfor %}
+
+
+    <div class="mt-5 text-center"><h3>Task Whats Staff can do</h3></div>
+    <div class="row mt-4 ">
+        
+        
+
+        <div class="col-lg-4 mb-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top " src="{% static 'images/placeholders/addDoctoricon.png' %}" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title">Add Doctor User</h4>
+                  <a href="{%url 'add-doctor'%}" class="btn btn-primary">Add a Doctor in server</a>
+                </div>
+            </div>   
+        </div>
+
+
+        <div class="col-lg-4 mb-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top " src="{% static 'images/placeholders/ambulance-placeholder.jpg' %}" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title">Add Ambulance</h4>
+                  <p class="card-text"></p>
+                  <a href="#" class="btn btn-primary">Add a Doctor in server</a>
+                </div>
+            </div>   
+        </div>
+
+    </div>
+        
+  
+    </div>
+
+
+
+
+{% endblock %}
