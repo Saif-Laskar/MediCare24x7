@@ -192,8 +192,8 @@ def add_doctor_view(request):  # The doctor signup page
     This view will render the doctor user adding page.
     :param request: The HTTP request
 
-    This view renders a doctor signup form and then takes in an email and a password.
-    if the email and password is authentic then logs in the user otherwise shows an error.
+    This view renders a doctor registration form and then takes in an email and a password.
+    if the email and password is authentic then it saves the user
 
     :return: renders the doctor signup page
     """
