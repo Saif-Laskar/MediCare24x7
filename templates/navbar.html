@@ -45,13 +45,16 @@
                             class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
                         {% if request.user.is_doctor %}
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="{% url 'patient-profile' request.user.id %}">
                             <i class="far fa-user"></i> Profile</a>
                         </li>
                         {% else %}
-                        <li><a class="dropdown-item" href="#">
-                            <i class="fas fa-user"></i> Profile</a>
-                        </li>
+                            {% if not request.user.is_staff%}
+                            <li><a class="dropdown-item" href="{% url 'patient-profile' request.user.id %}">
+                                <i class="fas fa-user"></i> Profile</a>
+                            </li>
+                            {% endif %}
+                    
                         {% endif %}
                         <li><a class="dropdown-item" href="#">
                             <i class="fas fa-cog"></i> Settings</a></li>
@@ -68,9 +71,9 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
                         <li><a class="dropdown-item" href="{%url 'login' %}">
                             <i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                        <li><a class="dropdown-item" href="#">
-<!--                            <i class="fas fa-user-md"></i> Doctor Sign Up</a></li>-->
-                        <li><a class="dropdown-item" href="{%url 'signup'%}">
+<!--                        <li><a class="dropdown-item" href="#">-->
+                            <!--                            <i class="fas fa-user-md"></i> Doctor Sign Up</a></li>-->
+                        <li><a class="dropdown-item" href="{%url 'signup' %}">
                             <i class="fas fa-user-injured"></i> Patient Sign Up</a></li>
                     </ul>
                 </li>
