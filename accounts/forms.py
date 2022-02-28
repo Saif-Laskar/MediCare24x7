@@ -45,11 +45,11 @@ class DoctorRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}),
         help_text='Re-type Password',
     )
-    check = forms.BooleanField(required=True)
+    # check = forms.BooleanField(required=True)
 
     class Meta:
         model = UserModel
-        fields = ("name", "email", "password1", "password2", "check")
+        fields = ("name", "email", "password1", "password2")
 
 
 class PatientRegistrationForm(UserCreationForm):
@@ -73,5 +73,20 @@ class PatientRegistrationForm(UserCreationForm):
     )
 
     class Meta:
-        model = UserModel  # UserModel
-        fields = ("name", "email", "password1", "password2")  # fields
+        model = UserModel
+        fields = ("name", "email", "password1", "password2")
+
+
+class PatientEditProfileForm(ModelForm):
+    # image = forms.ImageField(
+    #     required=False,
+    #     error_messages={'invalid': "Image files only"},
+    #     widget=forms.FileInput,
+    # ) 
+    date_of_birth = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'})) 
+    last_donation = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = PatientModel  
+        fields = '__all__' 
+        exclude = ['user'] 

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-xl-7">
+                <div class="block">
+                    <div class="divider mb-3"></div>
+                    <span class="text-uppercase text-sm letter-spacing ">Total Health care solution</span>
+                    <h1 class="mb-3 mt-3">Keep Up the Good Work</h1>
+
+                    <p class="mb-4 pr-5">We appreciate you helping out the community. The impact you have on the
+                        people is extraordinary. We are grateful to you for such nice gesture.</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- <div class="card-deck">
+    
+</div> -->
+
+
+
+
+
+<div class="container">
+    <div class="mt-5 text-center"><h3>Task Whats Staff can do</h3></div>
+    <div class="row mt-4 ">
+        
+        
+
+        <div class="col-lg-4 mb-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top " src="{% static 'images/placeholders/addDoctoricon.png' %}" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title">Add Doctor User</h4>
+                  <a href="{%url 'add-doctor'%}" class="btn btn-primary">Add a Doctor in server</a>
+                </div>
+            </div>   
+        </div>
+
+
+        <div class="col-lg-4 mb-3">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top " src="{% static 'images/placeholders/ambulance-placeholder.jpg' %}" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title">Add Ambulance</h4>
+                  <p class="card-text"></p>
+                  <a href="#" class="btn btn-primary">Add a Doctor in server</a>
+                </div>
+            </div>   
+        </div>
+
+    </div>
+        
+  
+    </div>
+
+
+
+
+{% endblock %}
