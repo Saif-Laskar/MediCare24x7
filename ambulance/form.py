@@ -141,3 +141,11 @@ DISTRICTS = [   # All Districts for ambulance city/location
 
         ('Thakurgaon', 'Thakurgaon')
     ]
+
+class AmbulanceForm(ModelForm):
+
+    city = forms.ChoiceField(widget=forms.Select(choices=DISTRICTS))
+    category = forms.ChoiceField(widget=forms.Select(choices=CATEGORY))
+    class Meta:
+        model = Ambulance
+        fields = '__all__'
