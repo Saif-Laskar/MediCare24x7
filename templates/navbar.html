@@ -25,7 +25,11 @@
                     <a class="nav-link" href="#">Appointments</a>
                 </li>
                 {% endif %}
-
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'staff-all-ambulance' %}">All Ambulance</a>
+                </li>
+                {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown02"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Emergency <i
