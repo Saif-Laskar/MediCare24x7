@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - {{ user.name }}{% endblock %}
+
+{% block content %}
+
+<section class="page-title bg-1">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block text-center">
+                    <span class="text-white">Doctor Details</span>
+                    <h1 class="text-capitalize mb-5 text-lg">{{ profile.user.name }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section doctor-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="doctor-img-block">
+                    {% if profile.image %}
+                    <img src="{{ profile.image.url }}" alt="{{ user.name }}" class="img-fluid w-100">
+
+                    {% else %}
+                    <img src="{% static 'images/placeholders/addDoctoricon.png' %}" alt="{{ user.name }}"
+                         class="img-fluid w-100">
+                    {% endif %}
+
+
+                    <div class="info-block mt-4">
+                        <p class="mb-1">
+                            <span class="h3">{{ profile.user.name }}</span>
+                            {% if profile.gender %}<span class="h5">({{ profile.gender }})</span>{% endif %}
+                        </p>
+
+                        {% if profile.specialization %}
+                        <p class="h4 text-color-2">{{ profile.specialization }}</p>
+                        {% endif %}
+
+                        {% if profile.blood_group %}<p class="h5">Blood Group: {{ profile.blood_group }}</p>{% endif %}
+
+                        {% if profile.NID %}<p class="h5">NID: {{ profile.NID }}</p>{% endif %}
+
+                        {% if profile.phone %}<p class="h5">Phone: {{ profile.phone }}</p>{% endif %}
+
+                        {% if profile.BMDC_regNo %}<p class="h5">BMDC Reg No.: {{ profile.BMDC_regNo }}</p>{% endif %}
+
+                        {% if is_self %}
+                        <div class="text-center">
+                            <a href="{% url 'doctor-edit-profile' %}" class="btn btn-main-2 btn-round-full mt-3">
+                                <i class="far fa-edit"></i> Update Profile
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-6">
+                <div class="doctor-details mt-4 mt-lg-0">
+                    <h2 class="text-md">About myself</h2>
+                    <div class="divider my-4"></div>
+                    {% if profile.bio %}
+                    <p>{{ profile.bio }}</p>
+
+                    {% elif is_self and incomplete_profile %}
+                    <a href="{% url 'doctor-edit-profile' %}" class="btn btn-main-2 btn-round-full mt-3">
+                        Complete Your Profile
+                    </a>
+                    {% endif %}
+
+                    <hr/>
+
+                  
+                </div>
+            </div>
+        </div>
+        <hr/>
+
+
+
+
+
+    
+    </div>
+</section>
+
+{% endblock %}

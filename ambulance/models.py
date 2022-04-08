@@ -144,10 +144,9 @@ DISTRICTS = [   # All Districts for ambulance city/location
 class Ambulance(models.Model): # Ambulance model;
     "Here all the information is about a ambulance including its driver"
     
-    
 
 
-    vehicleNumber= models.CharField(max_length=20, unique=True)
+    vehicleNumber= models.CharField(max_length=20, unique=True) 
     city= models.CharField(max_length=20, choices= DISTRICTS ,null= False)
     category= models.CharField(max_length=20,choices= CATEGORY ,null= False)
     driverName= models.CharField(max_length=20, null=True, blank=True)

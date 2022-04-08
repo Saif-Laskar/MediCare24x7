@@ -1,0 +1,15 @@
+phase I:
+1. Login
+2. Signup
+3. View patient Profile
+4. Edit Patient Profile
+
+Phase II:
+5. Staff Login/Dashboard
+6. Staff can add Doctors
+7. Staff can add Ambulance
+8. Staff can See the ambulance list
+9. Added Doctors login
+10. Doctors can see thier profile
+11. Doctors Can Fill thier Information
+12. Doctors can update their profile

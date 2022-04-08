@@ -49,7 +49,7 @@ class DoctorRegistrationForm(UserCreationForm):
 
     class Meta:
         model = UserModel
-        fields = ("name", "email", "password1", "password2")
+        fields = ("name", "email", "password1", "password2")        
 
 
 class PatientRegistrationForm(UserCreationForm):
@@ -90,3 +90,12 @@ class PatientEditProfileForm(ModelForm):
         model = PatientModel  
         fields = '__all__' 
         exclude = ['user'] 
+
+class DoctorEditProfileForm(ModelForm):
+    """
+    This form is used to edit a doctor's profile.
+    """
+    class Meta:
+        model = DoctorModel
+        fields = '__all__'
+        exclude = ['user']

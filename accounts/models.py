@@ -129,6 +129,14 @@ class DoctorModel(models.Model):
         ('O+', 'O+'),
         ('O-', 'O-'),
     ]
+    SpecializationModel= [
+        ('Cardiology', 'Cardiology'),
+        ('Dentistry', 'Dentistry'),
+        ('Dermatology', 'Dermatology'),
+        ('Endocrinology', 'Endocrinology'),
+        ('Gastroenterology', 'Gastroenterology'),
+        ('General Surgery', 'General Surgery'),
+    ]
 
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
     bio = models.TextField(null=True, blank=True)
@@ -138,7 +146,7 @@ class DoctorModel(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     NID = models.CharField(max_length=50, null=True, blank=True)
-    specialization = models.ForeignKey(SpecializationModel, null=True, blank=True, on_delete=models.SET_NULL)
+    specialization = models.CharField(max_length=20, choices=SpecializationModel, null=True, blank=True)
     BMDC_regNo = models.CharField(max_length=100, null=True, blank=True)
     last_donation = models.DateField(null=True, blank=True)
 
