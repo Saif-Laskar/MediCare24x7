@@ -66,7 +66,7 @@
                                 <p class="card-text">{{ ambulance.vehicleNumber }}</p>
                                 {% endif %}
                             </div>
-                            <a href="#" class="btn btn-primary">View Ambulance Details</a>
+                            <a href="{% url 'ambulance-details' ambulance.id %}" class="btn btn-primary">View Ambulance Details</a>
                         </div>
                     </div>
                     {% endfor %}
