@@ -45,12 +45,12 @@
 						<hr />
 						<h4>Vechicle Number:
 							<span class="text-color-2">
-								{{ ambulance.vehicle_number }}
+								{{ ambulance.vehicleNumber }}
 							</span>
 						</h4>
 						<h4>Ambulance Type:
 							<span class="text-color-2">
-								{{ ambulance.type }}
+								{{ ambulance.category }}
 							</span>
 						</h4>
 						<h4>Registered City:
@@ -60,17 +60,19 @@
 						</h4>
 						<h4>Inter City Rent:
 							<span class="text-color-2">
-								{{ ambulance.rent_inter_city }} BDT per Hour
+								{{ ambulance.rentInterDivision }} BDT per Hour
 							</span>
 						</h4>
 						<h4>Intra City Rent:
 							<span class="text-color-2">
-								{{ ambulance.rent_intra_civision }} BDT per Hour
+								{{ ambulance.rentIntraDivision }} BDT per Hour
 							</span>
 						</h4>
 						<h4>Image:</h4>
-						<img src="{{ ambulance.ambulance_image.url }}" alt="Ambulance Image" class="img-fluid" />
-					</div>
+                        {%if ambulance.ambulanceImage %}
+						<img src="{{ ambulance.ambulanceImage.url }}" alt="Ambulance Image" class="img-fluid" />
+                        {% endif %}
+                    </div>
 
 					<div class="col-lg-6">
 						<h3 class="text-center">
@@ -79,27 +81,29 @@
 						<hr />
 						<h4>Name:
 							<span class="text-color-2">
-								{{ ambulance.driver_name }}
+								{{ ambulance.driverName }}
 							</span>
 						</h4>
 						<h4>Phone:
 							<span class="text-color-2">
-								{{ ambulance.driver_phone }}
+								{{ ambulance.driverContact }}
 							</span>
 						</h4>
 						<h4>Email Address:
 							<span class="text-color-2">
-								{{ ambulance.driver_email }}
+								{{ ambulance.driverEmail }}
 							</span>
 						</h4>
 						<h4>Gender:
 							<span class="text-color-2">
-								{{ ambulance.driver_gender }}
+								{{ ambulance.driverGender }}
 							</span>
 						</h4>
 						<h4>Image:</h4>
-						<img src="{{ ambulance.driver_image.url }}" alt="Driver Image" class="img-fluid" height="250px"
+                        {%if ambulance.driverImage %}
+						<img src="{{ ambulance.driverImage.url }}" alt="Driver Image" class="img-fluid" height="250px"
 							width="250px" />
+                        {% endif %}
 					</div>
 				</div>
 				<hr />

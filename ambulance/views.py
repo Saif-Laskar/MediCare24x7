@@ -37,7 +37,7 @@ def staff_abmulance_view(request):  # staff-all-ambulance view, this view is for
 
 
 def ambulance_detail_view(request, pk):
-    ambulance= Ambulance.objects.get(id=pk)
+    ambulance= Ambulance.objects.get(pk=pk)
     is_patient= False
     is_doctor = False
     is_staff  = False
