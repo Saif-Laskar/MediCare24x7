@@ -22,7 +22,7 @@
                 </li>
                 {% elif request.user.is_authenticated and request.user.is_patient %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Appointments</a>
+                    <a class="nav-link" href="{%url 'patient-all-appointments'%}">Appointments</a>
                 </li>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_staff %}

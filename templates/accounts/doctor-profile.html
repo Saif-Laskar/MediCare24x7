@@ -79,6 +79,20 @@
 
                   
                 </div>
+                {% if request.user.is_patient and not is_pending %}
+                    <hr/>
+                    <a href="{%url 'make-appointment' user.id%}"
+                       class="btn btn-main-2 btn-round-full mt-3">Make an Appointment With Me
+                        <i class="icofont-simple-right ml-2"></i>
+                    </a>
+                    {% elif request.user.is_patient and is_pending %}
+                    <hr/>
+                    <button class="btn btn-main-2 btn-round-full mt-3" disabled>
+                        Make an Appointment With Me
+                        <i class="icofont-simple-right ml-2"></i>
+                    </button>
+                    <h6 class="text-danger m-2">You have a pending appointment with me</h6>
+                    {% endif %}
             </div>
         </div>
         <hr/>

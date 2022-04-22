@@ -6,6 +6,9 @@ from .utils import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 
+from appointment.models import AppointmentModel
+
+
 
 def home_view(request):  # The home page
 
@@ -249,13 +252,30 @@ def doctor_profile_view(request, pk):
         or not profile.BMDC_regNo
     ):
         incomplete_profile = True
-        incomplete_profile = True
+
+    is_pending= False
+
+    if request.user.is_patient:
+        patient =PatientModel.objects.get(user=request.user)
+        appointments = AppointmentModel.objects.filter(patient=patient, doctor=profile, is_canceled= False, is_completed=False)
+        
+        if appointments.count()>0:
+            is_pending=True
+    
+
+    NumberOfPendings=0
+    if request.user.is_doctor:
+        doctor = DoctorModel.objects.get(user=request.user)
+        pendingAppointments = AppointmentModel.objects.filter(patient=profile, is_canceled= False, is_completed=False)
+        NumberOfPendings=appointments.count()
+        
     context = {  # Context to render the view
         "user": user,  # The user
         "is_self": is_self,  # The flag
         "profile": profile,  # The doctor's profile
         "date_joined": date_joined,  # The account age
         "incomplete_profile": incomplete_profile,  # The incomplete profile flag
+        "is_pendind": is_pending, # any pending appointment
     }
     return render(request, "accounts/doctor-profile.html", context)  # Render the view
 
@@ -320,7 +340,7 @@ def doctor_profile_edit_view(request):  # The doctor's profile edit page
             return redirect(
                 "doctor-profile", user.id
             )  # Redirect to the doctor's profile
-        else:  # The form is invalid
+        else:  # The form is invali d
             return redirect("edit-profile")  # Redirect to the edit profile page
 
     context = {  # Context to render the view
