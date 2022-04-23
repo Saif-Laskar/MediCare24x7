@@ -18,7 +18,7 @@
                 <li class="nav-item"><a class="nav-link" href="#">Articles</a></li>
                 {% if request.user.is_authenticated and request.user.is_doctor %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Appointments</a>
+                    <a class="nav-link" href="{%url 'doctor-all-appointments'%}">D Appointments</a>
                 </li>
                 {% elif request.user.is_authenticated and request.user.is_patient %}
                 <li class="nav-item">

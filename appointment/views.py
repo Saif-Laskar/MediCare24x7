@@ -104,7 +104,7 @@ def patient_all_appointments_view(request):
     """
     user = request.user  # get current user from request
     patient = PatientModel.objects.get(user=user)  # get current patient from user
-    appointments = AppointmentModel.objects.all()
+    appointments = AppointmentModel.objects.filter(patient=patient)  # get all appointments for current patient
     pending_appointments = [appointment for appointment in appointments
                             if appointment.is_accepted == False
                             and appointment.is_canceled == False
@@ -129,3 +129,25 @@ def patient_all_appointments_view(request):
         'completed_appointments': completed_appointments,
     }
     return render(request, 'appointment/patient-all-appointment.html', context)  # render the page
+
+@login_required(login_url='login')
+def doctor_all_appointments_view(request):
+    """
+        This view allows registered doctor type user
+        to view all appointments they have made,
+
+    """
+    user = request.user  # get current user from request
+    doctor = DoctorModel.objects.get(user=user)  # get current doctor from user
+    appointments = AppointmentModel.objects.filter(doctor=doctor)  # get all appointments for current doctor
+    pending_appointments = [appointment for appointment in appointments if appointment.is_canceled == False and appointment.is_completed == False]
+    upcoming_appointments = [appointment for appointment in appointments if appointment.is_accepted == True and appointment.is_canceled == False and appointment.is_completed == False]
+    completed_appointments = [appointment for appointment in appointments if appointment.is_accepted == True and appointment.is_canceled == False and appointment.is_completed == True]
+
+    context = {  # create context to pass to frontend
+        'pending_appointments': pending_appointments,
+        'upcoming_appointments': upcoming_appointments,
+        'completed_appointments': completed_appointments,
+    }
+
+    return render(request, 'appointment/doctor-all-appointment.html', context)  # render the page

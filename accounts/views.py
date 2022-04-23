@@ -261,13 +261,12 @@ def doctor_profile_view(request, pk):
         
         if appointments.count()>0:
             is_pending=True
-    
 
     NumberOfPendings=0
     if request.user.is_doctor:
         doctor = DoctorModel.objects.get(user=request.user)
-        pendingAppointments = AppointmentModel.objects.filter(patient=profile, is_canceled= False, is_completed=False)
-        NumberOfPendings=appointments.count()
+        pendingAppointments = AppointmentModel.objects.filter(doctor=profile, is_canceled= False, is_completed=False)
+        NumberOfPendings=pendingAppointments.count()
         
     context = {  # Context to render the view
         "user": user,  # The user
@@ -275,7 +274,7 @@ def doctor_profile_view(request, pk):
         "profile": profile,  # The doctor's profile
         "date_joined": date_joined,  # The account age
         "incomplete_profile": incomplete_profile,  # The incomplete profile flag
-        "is_pendind": is_pending, # any pending appointment
+        "is_pending": is_pending, # any pending appointment
     }
     return render(request, "accounts/doctor-profile.html", context)  # Render the view
 

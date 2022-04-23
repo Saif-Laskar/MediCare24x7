@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Doctor:
-                    <a href="{% url 'doctor-profile' appointment.doctor.id %}" class="text-color-2">
+                    <a href="{% url 'doctor-profile' appointment.doctor.user.id %}" class="text-color-2">
                         {{ appointment.doctor.user.name }}
                     </a>
                 </h3>

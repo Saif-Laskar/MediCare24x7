@@ -6,5 +6,6 @@ urlpatterns = [
     path('make-appointment/<int:pk>', make_appointment_view, name='make-appointment'),
     path('detail/<int:pk>', appointment_detail_view, name='appointment-detail'),
     path('all-appointments', patient_all_appointments_view, name='patient-all-appointments'),
+    path('doctor-all-appointments', doctor_all_appointments_view, name='doctor-all-appointments'),
 
 ]
