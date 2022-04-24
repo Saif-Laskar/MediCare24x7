@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+import datetime
+from django.contrib import messages
 from accounts.models import *
 from .forms import *
 # Create your views here.
@@ -34,6 +36,29 @@ def make_appointment_view(request,pk):
     if request.method == 'POST': # if request method is post
         form = PatientAppointmentForm(request.POST) # get form object
         if form.is_valid(): # if form is valid
+            print(form.cleaned_data['date'])
+            if form.cleaned_data['date'] < datetime.date.today(): # if the date is less than today's date
+                messages.error(request, 'Date cannot be less than today\'s date') # display error message
+                
+                context={
+                    'form':form,
+                    'doctor':doctor,
+                    'patient':patient,
+                }
+
+                return redirect('make-appointment',pk) # redirect to make-appointment view
+            
+            count= AppointmentModel.objects.filter(doctor=doctor,date=form.cleaned_data['date']).count() # get the count of appointments for the doctor on the same date
+            
+            if  count== 1:
+                messages.error(request, 'Appointment Limit of This Doctor is Full on this date, Please Try Another Date') # display error message
+                context={
+                    'form':form,
+                    'doctor':doctor,
+                    'patient':patient,
+                }
+                return redirect('make-appointment',pk) # redirect to make-appointment view
+
             appointment = form.save(commit=False) # Create new appointment object
             appointment.patient = patient  # Set current user, who is patient, as patient of new appointment
             appointment.doctor = doctor  # Set the doctor for the new appointment

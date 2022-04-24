@@ -37,8 +37,12 @@
                 <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
                     <h2 class="mb-2 title-color">Book an Appointment</h2>
                     <p class="mb-4">
-                        Mollitia dicta commodi est recusandae iste, natus eum asperiores corrupti qui velit
-                        . Iste dolorum atque similique praesentium soluta.
+                        {% for message in messages%}
+    
+                        <div class="alert alert-danger">
+                            <div class="mt-5 text-center">{{message}}</div>
+                        </div>
+                        {% endfor %}
                     </p>
                     <form method="post">
 
