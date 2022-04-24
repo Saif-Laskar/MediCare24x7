@@ -151,3 +151,24 @@ def doctor_all_appointments_view(request):
     }
 
     return render(request, 'appointment/doctor-all-appointment.html', context)  # render the page
+
+@login_required(login_url='login')
+def patient_update_appointment_view(request,pk):
+    """
+        This view allows registered patient type user
+        to update an appointment he has made,
+
+    """
+    appointment = AppointmentModel.objects.get(id=pk)
+    form = PatientAppointmentForm(instance=appointment)
+    if request.method == 'POST':
+        form = PatientAppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            return redirect('appointment-detail', appointment.id)
+    
+    context={
+        'form':form,
+        'appointment':appointment,
+    }
+    return render(request, 'appointment/patient-update-appointment.html',context)

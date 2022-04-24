@@ -71,8 +71,8 @@
             </div>
             {% if request.user.is_patient and is_pending %}
             <div class="col-lg-6 text-center">
-                <a href="#"
-                   class="btn btn-danger btn-main btn-round-full mt-3">
+                <a href="{% url 'patient-update-appointment' appointment.id %}"
+                   class="btn btn-anger btn-main btn-round-full mt-3">
 
                    Update Appointment</a>
                    

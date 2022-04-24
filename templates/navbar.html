@@ -18,12 +18,27 @@
                 <li class="nav-item"><a class="nav-link" href="#">Articles</a></li>
                 {% if request.user.is_authenticated and request.user.is_doctor %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{%url 'doctor-all-appointments'%}">D Appointments</a>
+                    <a class="nav-link" href="{%url 'doctor-all-appointments'%}">Appointments</a>
                 </li>
                 {% elif request.user.is_authenticated and request.user.is_patient %}
                 <li class="nav-item">
                     <a class="nav-link" href="{%url 'patient-all-appointments'%}">Appointments</a>
                 </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointments <i
+                            class="icofont-thin-down"></i></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                        <li><a class="dropdown-item" href="#">
+                            <i class="fa fa-calendar"></i>Appointment Requests</a></li>
+                        <li><a class="dropdown-item" href="#">
+                            <i class="fa fa-arrow-right"></i>Upcoming Appointments</a></li>
+                    </ul>
+                </li>
+
+
+
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_staff %}
                 <li class="nav-item">
@@ -38,7 +53,7 @@
                         <li><a class="dropdown-item" href="#">
                             <i class="icofont-blood-drop"></i> Blood Donation</a></li>
                         <li><a class="dropdown-item" href="#">
-                            <i class="fas fa-hand-holding-medical"></i> Ambulnace Booking</a></li>
+                            <i class="fas fa-ambulance"></i> Ambulnace Booking</a></li>
                     </ul>
                 </li>
 
