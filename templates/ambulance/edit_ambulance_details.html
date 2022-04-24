@@ -25,134 +25,135 @@
             </div>
         </div>
     </div>
-    <div class="container"  style="background: #85C0EC">
+
+    <div class="container"  style="background: #1D8348">
         <div class="row mb-5">
             <div class="col-lg-12 col-md-12">
                 <form method="post">
 
                     {% csrf_token %}
 
+                    <div class="blog-breadcrumbs-left">
+                        <h2 class="text-center" style="color: #ffffff">Ambulance Details</h2>
+
+                    </div>
+
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Ambulance Vehicel Number</label>
+                                <label style="color: #000000">Ambulance Vehicel Number</label>
                                 {{ form.vehicleNumber|add_class:"form-control" }}
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label style="color: #004DFF">City</label>
-                                {{ form.city|add_class:"form-control" }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Ambulance Category</label>
-                                {{ form.category|add_class:"form-control" }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Ambulance  Image</label>
+                                <label style="color: #000000">Ambulance  Image</label>
                                 {{ form.ambulanceImage|add_class:"form-control" }}
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Driver Name</label>
+                                <label style="color: #000000">City</label>
+                                {{ form.city|add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Ambulance Category</label>
+                                {{ form.category|add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="blog-breadcrumbs-left">
+                        <h2 class="text-center" style="color: #ffffff">Ambulance Driver Details</h2>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Driver Name</label>
                                 {{ form.driverName|add_class:"form-control" }}
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
+                        
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Driver Contact</label>
-                                {{ form.driverContact|add_class:"form-control" }}
+                                <label style="color: #000000">Driver's Image</label>
+                                {{ form.driverImage|add_class:"form-control" }}
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Driver Address</label>
-                                {{ form.driverAddress|add_class:"form-control" }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Driver NID</label>
+                                <label style="color: #000000">Driver NID</label>
                                 {{ form.driverNID|add_class:"form-control" }}
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Driver License</label>
+                                <label style="color: #000000">Driver License</label>
                                 {{ form.driverLicense|add_class:"form-control" }}
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Blood Group</label>
+                                <label style="color: #000000">Driver Contact</label>
+                                {{ form.driverContact|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Driver Address</label>
+                                {{ form.driverAddress|add_class:"form-control" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Gender</label>
+                                {{ form.driverGender|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Blood Group</label>
                                 {{ form.driverBloodGroup|add_class:"form-control" }}
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Gender</label>
-                                {{ form.driverGender|add_class:"form-control" }}
-                            </div>
-                        </div>
+                    <div class="blog-breadcrumbs-left">
+                        <h2 class="text-center" style="color: #ffffff">Ambulance Rent Details</h2>
+
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Driver's Image</label>
-                                {{ form.driverImage|add_class:"form-control" }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Inter Division Rent</label>
+                                <label style="color: #000000">Inter Division Rent</label>
                                 {{ form.rentInterDivision|add_class:"form-control" }}
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Intra Division Rent</label>
+                                <label style="color: #000000">Intra Division Rent</label>
                                 {{ form.rentIntraDivision|add_class:"form-control" }}
                             </div>
                         </div>
@@ -160,7 +161,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-group">
+                            <div class="form-group" style="color: #000000">
                                 <label>Available  {{ form.available|add_class:"form-control" }}</label>
                                
                             </div>
@@ -171,7 +172,7 @@
 
 
                     <div class="text-center">
-                        <button class="btn btn-main btn-round-full" type="submit">
+                        <button class="btn btn-main btn-round-full" type="submit" >
                              Update Ambulance Details</span>
                         </button>
                     </div>
@@ -179,6 +180,7 @@
             </div>
         </div>
     </div>
+
 </section>
 
 {% endblock %}
