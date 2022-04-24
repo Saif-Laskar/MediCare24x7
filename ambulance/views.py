@@ -4,10 +4,13 @@ from django.shortcuts import render,redirect
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 
 # Create your views here.
+
+@login_required(login_url='login')
 def add_ambulance_view(request):    # add-ambulance view, this view is for staff to add ambulance
     if request.method == 'POST':    # if the request is a post request
         form = AmbulanceForm(request.POST) # create a form object with the data from the request
@@ -24,6 +27,7 @@ def add_ambulance_view(request):    # add-ambulance view, this view is for staff
     return render(request, 'ambulance/add_ambulance.html', context)     # render the add_ambulance.html template with the context
 
 
+@login_required(login_url='login')
 def edit_ambulance_view(request, pk):    # edit-ambulance view, this view is for staff to edit ambulance
 
     ambulance= Ambulance.objects.get(pk=pk)
@@ -51,7 +55,7 @@ def edit_ambulance_view(request, pk):    # edit-ambulance view, this view is for
 
 
 
-
+@login_required(login_url='login')
 def staff_abmulance_view(request):  # staff-all-ambulance view, this view is for staff to view all ambulances
     ambulances = Ambulance.objects.all()    # get all ambulances from the database
     context = { 
@@ -60,8 +64,7 @@ def staff_abmulance_view(request):  # staff-all-ambulance view, this view is for
     return render(request, 'ambulance/staff-all-ambulance.html', context)   # render the staff-all-ambulance.html template with the context
 
 
-
-
+@login_required(login_url='login')
 def ambulance_detail_view(request, pk):
     ambulance= Ambulance.objects.get(pk=pk)
     is_patient= False
@@ -92,4 +95,12 @@ def ambulance_detail_view(request, pk):
     }
 
     return render(request,'ambulance/ambulance-details.html',context)
+
+@login_required(login_url='login')
+def patient_available_abmulance_view(request):  # staff-all-ambulance view, this view is for staff to view all ambulances
+    ambulances = Ambulance.objects.filter(available=True)    # get all ambulances from the database
+    context = { 
+        'ambulances': ambulances, # pass the ambulances to the context
+    }
+    return render(request, 'ambulance/patient-available-abmulance.html', context)   # render the staff-all-ambulance.html template with the context
 
