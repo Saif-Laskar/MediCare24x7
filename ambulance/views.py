@@ -24,6 +24,32 @@ def add_ambulance_view(request):    # add-ambulance view, this view is for staff
     return render(request, 'ambulance/add_ambulance.html', context)     # render the add_ambulance.html template with the context
 
 
+def edit_ambulance_view(request, pk):    # edit-ambulance view, this view is for staff to edit ambulance
+
+    ambulance= Ambulance.objects.get(pk=pk)
+    form = AmbulanceEditForm(instance=ambulance)
+
+    if request.method == "POST":  # If the form has been submitted...
+        form = AmbulanceEditForm(
+            request.POST, request.FILES, instance=ambulance
+        )  # A form bound to the POST data
+
+        if form.is_valid():  # check if the form is valid
+            form.save()  # save the form
+            return redirect(
+                "ambulance-details", ambulance.id
+            )  # redirect to the ambulance details page
+        else:  # the form is invalid
+            return redirect("ambulance-details")  # redirect to the ambulance details page
+
+    context = {  # Context to render the form
+        "form": form,  # The form
+        "profile": ambulance,  # The patient's profile
+    }
+    return render(request, 'ambulance/edit_ambulance_details.html', context)
+
+
+
 
 
 def staff_abmulance_view(request):  # staff-all-ambulance view, this view is for staff to view all ambulances

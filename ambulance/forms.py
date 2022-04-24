@@ -10,3 +10,11 @@ class AmbulanceForm(ModelForm):
     class Meta:
         model = Ambulance
         fields = '__all__'
+
+
+class AmbulanceEditForm(ModelForm):
+
+    class Meta:
+        model = Ambulance  
+        fields = '__all__' 
+         
