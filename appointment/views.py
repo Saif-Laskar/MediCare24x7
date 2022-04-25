@@ -5,7 +5,6 @@ import datetime
 from django.contrib import messages
 from accounts.models import *
 from .forms import *
-# Create your views here.
 
 
 @login_required(login_url='login')
@@ -237,3 +236,17 @@ def doctor_update_appointment_view(request,pk):
         'appointment':appointment,
     }
     return render(request, 'appointment/doctor-update-appointment.html',context)
+
+
+@login_required(login_url='login')
+def reject_appointment_view(request,pk):
+    """
+        This view allows registered doctor type user
+        to reject an appointment he has made,
+
+    """
+    appointment = AppointmentModel.objects.get(id=pk)
+    appointment.is_accepted=False
+    appointment.is_canceled=True
+    appointment.save()
+    return redirect('doctor-all-appointments')
