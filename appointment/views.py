@@ -197,3 +197,4 @@ def patient_update_appointment_view(request,pk):
         'appointment':appointment,
     }
     return render(request, 'appointment/patient-update-appointment.html',context)
+
