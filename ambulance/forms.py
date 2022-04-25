@@ -23,9 +23,11 @@ class AmbulanceEditForm(ModelForm):
 
 class BookAmbulanceForm(ModelForm):
 
-    date = forms.DateField(widget= forms.DateInput(Attrs={'type':'date'}))
-    time = forms.TimeField(widget=forms.TimeField(attrs={'type':'time'}))
+    date = forms.DateField(widget= forms.DateInput(attrs={'type':'date'}))
+    time = forms.TimeField(widget=forms.TimeInput(attrs={'type':'time'}))
 
     class Meta:
         model = BookAmbulanceModel
         fields = '__all__'
+        exclude =['ambulance', 'patient']
+
