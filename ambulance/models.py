@@ -1,4 +1,7 @@
+from statistics import mode
+from unicodedata import category
 from django.db import models
+from accounts.models import PatientModel
 
 # Create your models here.
 CATEGORY=[
@@ -144,8 +147,7 @@ DISTRICTS = [   # All Districts for ambulance city/location
 class Ambulance(models.Model): # Ambulance model;
     "Here all the information is about a ambulance including its driver"
     
-
-
+    
     vehicleNumber= models.CharField(max_length=20, unique=True) 
     city= models.CharField(max_length=20, choices= DISTRICTS ,null= False)
     category= models.CharField(max_length=20,choices= CATEGORY ,null= False)
@@ -164,3 +166,19 @@ class Ambulance(models.Model): # Ambulance model;
     available = models.BooleanField(default=True)
 
 
+    class Meta:
+        verbose_name_plural = 'Ambulances'
+        
+
+class BookAmbulanceModel(models.Model):
+    ambulance       = models.ForeignKey(Ambulance, on_delete=models.CASCADE)
+    patient         = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
+    patientContact  = models.CharField(null=False, max_length=14)
+    destination     = models.CharField(null= True, blank= False,max_length=100)
+    is_emergency    = models.BooleanField(default=True)
+    date            = models.DateField(null=True, blank=False)
+    time            = models.TimeField(null= True, blank= False)
+
+
+    class Meta:
+        verbose_name_plural = 'Booked Ambulances'
