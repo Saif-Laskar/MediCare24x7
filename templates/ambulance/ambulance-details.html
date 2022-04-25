@@ -30,6 +30,16 @@
 				<span>EDIT AMBULANCE DETAILS</span>
 			</a>
 			{% endif %}
+
+			
+                {% if user.is_authenticated and user.is_patient %}
+                <a href="#"
+                   class="btn btn-main btn-round-full text-center"><i
+                        class="fa fa-plus"></i>
+                    <span>BOOK AMBULANCE</span>
+                </a>
+                {% endif %}
+            
 		</div>	
 
 

@@ -53,8 +53,6 @@ def edit_ambulance_view(request, pk):    # edit-ambulance view, this view is for
     return render(request, 'ambulance/edit_ambulance_details.html', context)
 
 
-
-
 @login_required(login_url='login')
 def staff_abmulance_view(request):  # staff-all-ambulance view, this view is for staff to view all ambulances
     ambulances = Ambulance.objects.all()    # get all ambulances from the database
@@ -96,6 +94,7 @@ def ambulance_detail_view(request, pk):
 
     return render(request,'ambulance/ambulance-details.html',context)
 
+
 @login_required(login_url='login')
 def patient_available_abmulance_view(request):  # staff-all-ambulance view, this view is for staff to view all ambulances
     ambulances = Ambulance.objects.filter(available=True)    # get all ambulances from the database
@@ -104,3 +103,4 @@ def patient_available_abmulance_view(request):  # staff-all-ambulance view, this
     }
     return render(request, 'ambulance/patient-available-abmulance.html', context)   # render the staff-all-ambulance.html template with the context
 
+  
