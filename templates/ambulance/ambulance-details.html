@@ -33,7 +33,7 @@
 
 			
                 {% if user.is_authenticated and user.is_patient %}
-                <a href="#"
+                <a href="{%url 'ambulance-booking' ambulance.id%}"
                    class="btn btn-main btn-round-full text-center"><i
                         class="fa fa-plus"></i>
                     <span>BOOK AMBULANCE</span>

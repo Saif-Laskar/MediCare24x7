@@ -119,7 +119,8 @@ def ambulance_booking_view(request,pk):
             booking.patient= patient
             booking.ambulance= ambulance
             booking.save()
-            return redirect('booking-details', booking.id)
+            # return redirect('booking-details', booking.id)
+            return redirect('patient-dashboard')
         
         else:
             context={
@@ -127,13 +128,13 @@ def ambulance_booking_view(request,pk):
                 'patient': patient,
                 'ambulance': ambulance,
             }
-            return render(request, 'ambulance-booking.html',context)
+            return render(request, 'ambulance/ambulance-booking.html',context)
 
     context={
         'form': form,
         'patient': patient,
         'ambulance': ambulance,
         }
-    return render(request, 'ambulance-booking.html',context)
+    return render(request, 'ambulance/ambulance-booking.html',context)
 
         
