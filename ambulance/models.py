@@ -165,6 +165,11 @@ class Ambulance(models.Model): # Ambulance model;
     rentIntraDivision = models.IntegerField(null=True, blank=True)
     available = models.BooleanField(default=True)
 
+
+    class Meta:
+        verbose_name_plural = 'Ambulances'
+        
+
 class BookAmbulanceModel(models.Model):
     ambulance       = models.ForeignKey(Ambulance, on_delete=models.CASCADE)
     patient         = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
@@ -173,3 +178,7 @@ class BookAmbulanceModel(models.Model):
     is_emergency    = models.BooleanField(default=True)
     date            = models.DateField(null=True, blank=False)
     time            = models.TimeField(null= True, blank= False)
+
+
+    class Meta:
+        verbose_name_plural = 'Booked Ambulances'
