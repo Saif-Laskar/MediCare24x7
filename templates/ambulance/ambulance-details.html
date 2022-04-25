@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - Ambulance Detail{% endblock %}
+
+{% block content %}
+
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<div class="blog-breadcrumbs-area">
+					<div class="blog-breadcrumbs-left">
+						<h2>Ambulance Information</h2>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-lg-3 col-md-12">
+			</div>
+			<div class="col-lg-3 col-md-12">
+			</div>		
+		</div>
+
+		<div class="col-lg-3 col-md-12">
+			{% if user.is_authenticated and user.is_staff%}
+			<a href="{% url 'edit-ambulance-details' ambulance.id %}"
+			class="btn btn-main btn-round-full text-center"><i
+					class="fa fa-plus"></i>
+				<span>EDIT AMBULANCE DETAILS</span>
+			</a>
+			{% endif %}
+
+			
+                {% if user.is_authenticated and user.is_patient %}
+                <a href="{%url 'ambulance-booking' ambulance.id%}"
+                   class="btn btn-main btn-round-full text-center"><i
+                        class="fa fa-plus"></i>
+                    <span>BOOK AMBULANCE</span>
+                </a>
+                {% endif %}
+            
+		</div>	
+
+
+
+		<div class="row mt-3">
+			<div class="col-lg-12">
+				<div class="blog-breadcrumbs-right">
+					<ol class="breadcrumb">
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-lg-12">
+
+				<div class="row">
+					<div class="col-lg-6">
+						<h3 class="text-center">
+							Ambulance Details
+						</h3>
+						<hr />
+						<h4>Vechicle Number:
+							<span class="text-color-2">
+								{{ ambulance.vehicleNumber }}
+							</span>
+						</h4>
+						<h4>Ambulance Type:
+							<span class="text-color-2">
+								{{ ambulance.category }}
+							</span>
+						</h4>
+						<h4>Registered City:
+							<span class="text-color-2">
+								{{ ambulance.city }}
+							</span>
+						</h4>
+						<h4>Inter City Rent:
+							<span class="text-color-2">
+								{{ ambulance.rentInterDivision }} BDT per Hour
+							</span>
+						</h4>
+						<h4>Intra City Rent:
+							<span class="text-color-2">
+								{{ ambulance.rentIntraDivision }} BDT per Hour
+							</span>
+						</h4>
+						<h4>Image:</h4>
+                        {%if ambulance.ambulanceImage %}
+						<img src="{{ ambulance.ambulanceImage.url }}" alt="Ambulance Image" class="img-fluid" />
+                        {% endif %}
+                    </div>
+
+					<div class="col-lg-6">
+						<h3 class="text-center">
+							Driver Details
+						</h3>
+						<hr />
+						<h4>Name:
+							<span class="text-color-2">
+								{{ ambulance.driverName }}
+							</span>
+						</h4>
+						<h4>Phone:
+							<span class="text-color-2">
+								{{ ambulance.driverContact }}
+							</span>
+						</h4>
+						<h4>Email Address:
+							<span class="text-color-2">
+								{{ ambulance.driverEmail }}
+							</span>
+						</h4>
+						<h4>Gender:
+							<span class="text-color-2">
+								{{ ambulance.driverGender }}
+							</span>
+						</h4>
+						<h4>Image:</h4>
+                        {%if ambulance.driverImage %}
+						<img src="{{ ambulance.driverImage.url }}" alt="Driver Image" class="img-fluid" height="250px"
+							width="250px" />
+                        {% endif %}
+					</div>
+				</div>
+				<hr />
+
+
+                {% if has_city %}
+				<div class="row mt-5">
+					<div class="col-lg-12">
+						<h3>Mostly Available Area</h3>
+						<iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0"
+							marginwidth="0" src={{ location_link|safe }}></iframe>
+					</div>
+				</div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
