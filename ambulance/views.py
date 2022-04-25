@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+import re
 from webbrowser import get
 from django.shortcuts import render,redirect
 from .models import *
@@ -103,4 +104,36 @@ def patient_available_abmulance_view(request):  # staff-all-ambulance view, this
     }
     return render(request, 'ambulance/patient-available-abmulance.html', context)   # render the staff-all-ambulance.html template with the context
 
-  
+
+@login_required(login_url='login')
+def ambulance_booking_view(request,pk):
+
+    ambulance   = Ambulance.objects.get(id=pk)
+    patient     = PatientModel.objects.get(user=request.user)
+    form =  BookAmbulanceForm()
+
+    if request.method == 'POST':
+        form = BookAmbulanceForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.patient= patient
+            booking.ambulance= ambulance
+            booking.save()
+            return redirect('booking-details', booking.id)
+        
+        else:
+            context={
+                'form': form,
+                'patient': patient,
+                'ambulance': ambulance,
+            }
+            return render(request, 'ambulance-booking.html',context)
+
+    context={
+        'form': form,
+        'patient': patient,
+        'ambulance': ambulance,
+        }
+    return render(request, 'ambulance-booking.html',context)
+
+        
