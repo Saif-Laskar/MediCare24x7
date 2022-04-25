@@ -13,3 +13,11 @@ Phase II:
 10. Doctors can see thier profile
 11. Doctors Can Fill thier Information
 12. Doctors can update their profile
+
+Final Phase:
+13. Doctors List to Make Appointment Request
+14. Patient can Request Appointments
+15. Detail View of an Appointment
+16. Paitents Can See their requested, upcoming and rejected appointments
+17. Doctors Can See the Upcoming Appointments and Completed appointments
+18. Patient Can Update the Appointment he has made
