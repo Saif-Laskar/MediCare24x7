@@ -25,7 +25,7 @@ class BookAmbulanceForm(ModelForm):
 
     date = forms.DateField(widget= forms.DateInput(Attrs={'type':'date'}))
     time = forms.TimeField(widget=forms.TimeField(attrs={'type':'time'}))
-    
+
     class Meta:
         model = BookAmbulanceModel
-        field = '__all__'
+        fields = '__all__'
