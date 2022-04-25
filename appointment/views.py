@@ -189,6 +189,13 @@ def patient_update_appointment_view(request,pk):
     if request.method == 'POST':
         form = PatientAppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
+            if form.cleaned_data['date'] < datetime.date.today(): # if the date is less than today's date
+                messages.error(request, 'Date cannot be less than today\'s date') # display error message
+                return redirect('patient-update-appointment', appointment.id) # redirect to update appointment page
+            count= AppointmentModel.objects.filter(doctor=appointment.doctor,date=form.cleaned_data['date']).count() # get the count of appointments for the doctor on the same date
+            if  count==20:
+                messages.error(request, 'Appointment Limit of This Doctor is Full on this date, Please Try Another Date') # display error message
+                return redirect('patient-update-appointment', appointment.id) # redirect to update appointment page
             form.save()
             return redirect('appointment-detail', appointment.id)
     
@@ -198,3 +205,35 @@ def patient_update_appointment_view(request,pk):
     }
     return render(request, 'appointment/patient-update-appointment.html',context)
 
+
+@login_required(login_url='login')
+def doctor_update_appointment_view(request,pk):
+    """
+        This view allows registered doctor type user
+        to update an appointment he has made,
+
+    """
+    appointment = AppointmentModel.objects.get(id=pk)
+    form = DoctorAppointmentForm(instance=appointment)
+
+    if request.method == 'POST':
+
+        form = DoctorAppointmentForm(request.POST, instance=appointment)
+        
+        if form.is_valid():
+        
+            if form.cleaned_data['date'] < datetime.date.today(): # if the date is less than today's date
+                messages.error(request, 'Date cannot be less than today\'s date') # display error message
+                return redirect('doctor-update-appointment', appointment.id) # redirect to update appointment page
+        
+            appointment= form.save()
+            appointment.is_accepted=True
+            appointment.save()
+        
+            return redirect('appointment-detail', appointment.id)
+    
+    context={
+        'form':form,
+        'appointment':appointment,
+    }
+    return render(request, 'appointment/doctor-update-appointment.html',context)

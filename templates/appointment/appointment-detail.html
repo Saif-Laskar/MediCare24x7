@@ -85,15 +85,15 @@
             </div>
             {% elif request.user.is_doctor and is_pending %}
             <div class="col-lg-6 text-center">
-                <a href="#"
+                <a href="{% url 'doctor-update-appointment' appointment.id %}"
                    class="btn btn-success btn-round-full mt-3">
-                   <!-- {% url 'doctor-appointment-update' appointment.id %} -->
+                   
                     Accept Appointment
                 </a><br/>
                 <a href="#"
                    class="btn btn-danger btn-round-full mt-3">
-                   <!-- {% url 'appointment-reject' appointment.id %} -->
-                    Reject Appointment
+                   
+                    Reject-Appointment
                 </a>
             </div>
             {% elif request.user.is_doctor and is_upcoming %}
@@ -101,7 +101,7 @@
                 <div class="text-center">
                     <a href="#"
                        class="btn btn-success btn-round-full mt-3" type="submit">
-                       <!-- {% url 'write-prescription' appointment.id %} -->
+                       
                         Prescribe patient
                     </a>
                 </div>

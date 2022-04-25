@@ -13,6 +13,14 @@
             <div class="col-md-12">
                 <div class="block text-center">
                     <h1 class="text-capitalize mb-5 text-lg">Update Appointment</h1>
+                    <p class="mb-4">
+                        {% for message in messages%}
+    
+                        <div class="alert alert-danger">
+                            <div class="mt-5 text-center">{{message}}</div>
+                        </div>
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>
