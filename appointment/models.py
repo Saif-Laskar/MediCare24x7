@@ -19,5 +19,5 @@ class AppointmentModel(models.Model):
 
 class PrescriptionModel(models.Model):
     appointment     = models.ForeignKey(AppointmentModel, on_delete=models.CASCADE)
-    prescription    = models.TextField(null= True, blank=True)
+    description    = models.TextField(null= True, blank=True)
     created_at      = models.DateTimeField(auto_now_add=True)

@@ -100,7 +100,7 @@
                     </h4>
                     <h4>On <span class="text-color-2">{{ appointment.date }}</span></h4>
                     <h4>At <span class="text-color-2">{{ appointment.time }}</span></h4>
-                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-main my-2">See More</a>
+                    <a href="{% url 'appointment-detail' appointment.id %}" class="btn btn-main my-2">See More</a>
                 </div>
             </div>
             {% endfor %}

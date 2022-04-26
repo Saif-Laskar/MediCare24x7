@@ -11,4 +11,5 @@ urlpatterns = [
     path('doctor-update-appointment/<int:pk>', doctor_update_appointment_view, name='doctor-update-appointment'),
     path('reject-appointment/<int:pk>', reject_appointment_view, name='reject-appointment'),
     path('delete-appointment/<int:pk>', patient_delete_appointment_view, name='delete-appointment'),
+    path('write-prescription/<int:pk>',write_prescription_view,name='write-prescription')
 ]

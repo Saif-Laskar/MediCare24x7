@@ -49,7 +49,7 @@ def make_appointment_view(request,pk):
             
             count= AppointmentModel.objects.filter(doctor=doctor,date=form.cleaned_data['date']).count() # get the count of appointments for the doctor on the same date
             
-            if  count== 1:
+            if  count== 20:
                 messages.error(request, 'Appointment Limit of This Doctor is Full on this date, Please Try Another Date') # display error message
                 context={
                     'form':form,
@@ -90,6 +90,7 @@ def appointment_detail_view(request,pk):
 
     """
     appointment = AppointmentModel.objects.get(id=pk)
+    print(appointment)
     is_pending = False
 
     if (appointment.is_accepted == False and
@@ -103,18 +104,18 @@ def appointment_detail_view(request,pk):
         appointment.is_completed == False): # if the appointment is accepted but not complete
         is_upcoming = True # set is_upcoming to true
 
-    is_complete = False # set is_complete to false
-    prescription = None # set prescription to none
+    is_completed = False # set is_complete to false
+    prescriptions = None # set prescription to none
     if appointment.is_completed: # if the appointment is complete
-        is_complete = True # set is_complete to true
-        prescription = PrescriptionModel.objects.get(appointment=appointment) # get prescription from appointment
-
+        is_completed = True # set is_complete to true
+        prescriptions = PrescriptionModel.objects.filter(appointment=appointment) # get prescription from appointment
+        
     context = { # create context to pass to frontend
         'appointment': appointment,
         'is_pending': is_pending,
-        'is_complete': is_complete,
+        'is_completed': is_completed,
         'is_upcoming': is_upcoming,
-        'prescription': prescription,
+        'prescriptions': prescriptions,
     }
     return render(request, 'appointment/appointment-detail.html', context) # render the page
 
@@ -136,7 +137,7 @@ def patient_all_appointments_view(request):
     upcoming_appointments = [appointment for appointment in appointments
                              if appointment.is_accepted == True
                              and appointment.is_canceled == False
-                             and appointment.is_complete == False]  # get all upcoming appointments
+                             and appointment.is_completed == False]  # get all upcoming appointments
     rejected_appointments = [appointment for appointment in appointments
                              if appointment.is_accepted == False
                              and appointment.is_canceled == True
@@ -286,13 +287,14 @@ def write_prescription_view(request, pk):
     if request.method == 'POST': # If the form has been submitted...
         form = PrescriptionForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
+            print("valid")
             prescription = form.save(commit=False) # create a new prescription
             prescription.appointment = appointment # add appointment to prescription
             prescription.save() # save prescription
 
-            appointment.is_complete = True # set appointment to complete
+            appointment.is_completed = True # set appointment to complete
             appointment.save() # save appointment
-            return redirect('appointment-details', appointment.id) # redirect to appointment details page
+            return redirect('appointment-detail', appointment.id) # redirect to appointment details page
         else: # the form is not valid
             context = { # create context to pass to frontend
                 'appointment': appointment,
