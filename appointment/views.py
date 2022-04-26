@@ -250,3 +250,19 @@ def reject_appointment_view(request,pk):
     appointment.is_canceled=True
     appointment.save()
     return redirect('doctor-all-appointments')
+
+
+@login_required(login_url='login')
+def patient_delete_appointment_view(request,pk):
+    """
+        This view allows registered patient type user
+        to delete an appointment he has made,
+    """
+    appointment = AppointmentModel.objects.get(id=pk)
+    if request.method == 'POST':
+        appointment.delete()
+        return redirect('patient-all-appointments')
+    context={
+        'appointment':appointment,
+    }
+    return render(request, 'appointment/delete-appointment.html',context)
