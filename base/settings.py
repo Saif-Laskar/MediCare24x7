@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'accounts',
     'ambulance',
     'appointment',
+    'blood_donation',
 
     'widget_tweaks',
     'jazzmin',
