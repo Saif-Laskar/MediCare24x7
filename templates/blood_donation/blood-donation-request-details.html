@@ -25,7 +25,7 @@
             </div>
             <div class="col-lg-3 col-md-12">
                 {% if my_post %}
-                <a href="#"
+                <a href="{% url 'blood-donation-delete-request' post.id %}"
                    class="btn btn-main btn-round-full text-center">
                     <i class="fa fa-trash"></i> Delete Blood Request
                 </a>

@@ -132,3 +132,22 @@ def update_blood_request_view(request, pk):  # update blood request
         'form': form,
     }
     return render(request,'blood_donation/blood-donation-create-update-request.html',context)
+
+
+def delete_blood_request_view(request, pk):  # delete blood request
+    """
+    This view will delete a specific blood request.
+    parms: request, user id
+    returns: redirect to the request list page
+
+    This view will delete a specific blood request.
+    """
+    post = BloodRequestModel.objects.get(id=pk) # get the blood request
+    if request.method == 'POST': # if the form has been submitted
+        post.delete() # delete the blood request
+        return redirect('users-requests', post.user.id) # redirect to the user's requests page
+
+    context = {
+        'post': post,
+    }
+    return render(request,'blood_donation/blood-donation-request-delete.html',context)
