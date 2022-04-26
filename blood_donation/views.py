@@ -32,3 +32,5 @@ def blood_donation_home_view(request):  # blood donation home page
         'blood_requests': blood_requests,
     }
     return render(request, 'blood_donation/blood-donation-home.html' ,context) # render the page to see all the requests
+
+
