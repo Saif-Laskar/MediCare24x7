@@ -77,7 +77,7 @@
                    Update Appointment</a>
                    
                 <br/>
-                <a href="#"
+                <a href="{% url 'delete-appointment' appointment.id %}"
                    class="btn btn-main-2 btn-round-full mt-3">
                    
                    Delete Appointment</a>
@@ -90,7 +90,7 @@
                    
                     Accept Appointment
                 </a><br/>
-                <a href="#"
+                <a href="{% url 'reject-appointment' appointment.id %}"
                    class="btn btn-danger btn-round-full mt-3">
                    
                     Reject-Appointment
@@ -99,23 +99,23 @@
             {% elif request.user.is_doctor and is_upcoming %}
             <div class="col-lg-6">
                 <div class="text-center">
-                    <a href="#"
+                    <a href="{%url 'write-prescription' appointment.id%}"
                        class="btn btn-success btn-round-full mt-3" type="submit">
                        
                         Prescribe patient
                     </a>
                 </div>
             </div>
-            {% elif is_complete %}
+            {% elif is_completed %}
             <div class="col-lg-6 ">
                 <div>
                     <h3 class="text-center">Prescription</h3>
-                    <div class="card rounded">{{ prescription.details|linebreaks }}</div>
+                    <div class="card rounded">{{ prescriptions.description|linebreaks }}</div>
                 </div>
                 <div class="text-center">
                     <a href="#" target="_blank"
                        class="btn btn-success btn-round-full mt-3" type="submit">
-                       <!-- {% url 'pdf-view' appointment.id %} -->
+                       
                         Download Prescription
                     </a>
                 </div>

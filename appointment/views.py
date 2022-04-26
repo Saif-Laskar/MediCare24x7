@@ -5,7 +5,6 @@ import datetime
 from django.contrib import messages
 from accounts.models import *
 from .forms import *
-# Create your views here.
 
 
 @login_required(login_url='login')
@@ -50,7 +49,7 @@ def make_appointment_view(request,pk):
             
             count= AppointmentModel.objects.filter(doctor=doctor,date=form.cleaned_data['date']).count() # get the count of appointments for the doctor on the same date
             
-            if  count== 1:
+            if  count== 20:
                 messages.error(request, 'Appointment Limit of This Doctor is Full on this date, Please Try Another Date') # display error message
                 context={
                     'form':form,
@@ -91,6 +90,7 @@ def appointment_detail_view(request,pk):
 
     """
     appointment = AppointmentModel.objects.get(id=pk)
+    print(appointment)
     is_pending = False
 
     if (appointment.is_accepted == False and
@@ -104,18 +104,18 @@ def appointment_detail_view(request,pk):
         appointment.is_completed == False): # if the appointment is accepted but not complete
         is_upcoming = True # set is_upcoming to true
 
-    is_complete = False # set is_complete to false
-    prescription = None # set prescription to none
+    is_completed = False # set is_complete to false
+    prescriptions = None # set prescription to none
     if appointment.is_completed: # if the appointment is complete
-        is_complete = True # set is_complete to true
-        prescription = PrescriptionModel.objects.get(appointment=appointment) # get prescription from appointment
-
+        is_completed = True # set is_complete to true
+        prescriptions = PrescriptionModel.objects.filter(appointment=appointment) # get prescription from appointment
+        
     context = { # create context to pass to frontend
         'appointment': appointment,
         'is_pending': is_pending,
-        'is_complete': is_complete,
+        'is_completed': is_completed,
         'is_upcoming': is_upcoming,
-        'prescription': prescription,
+        'prescriptions': prescriptions,
     }
     return render(request, 'appointment/appointment-detail.html', context) # render the page
 
@@ -137,7 +137,7 @@ def patient_all_appointments_view(request):
     upcoming_appointments = [appointment for appointment in appointments
                              if appointment.is_accepted == True
                              and appointment.is_canceled == False
-                             and appointment.is_complete == False]  # get all upcoming appointments
+                             and appointment.is_completed == False]  # get all upcoming appointments
     rejected_appointments = [appointment for appointment in appointments
                              if appointment.is_accepted == False
                              and appointment.is_canceled == True
@@ -237,3 +237,73 @@ def doctor_update_appointment_view(request,pk):
         'appointment':appointment,
     }
     return render(request, 'appointment/doctor-update-appointment.html',context)
+
+
+@login_required(login_url='login')
+def reject_appointment_view(request,pk):
+    """
+        This view allows registered doctor type user
+        to reject an appointment he has made,
+
+    """
+    appointment = AppointmentModel.objects.get(id=pk)
+    appointment.is_accepted=False
+    appointment.is_canceled=True
+    appointment.save()
+    return redirect('doctor-all-appointments')
+
+
+@login_required(login_url='login')
+def patient_delete_appointment_view(request,pk):
+    """
+        This view allows registered patient type user
+        to delete an appointment he has made,
+    """
+    appointment = AppointmentModel.objects.get(id=pk)
+    if request.method == 'POST':
+        appointment.delete()
+        return redirect('patient-all-appointments')
+    context={
+        'appointment':appointment,
+    }
+    return render(request, 'appointment/delete-appointment.html',context)
+
+
+@login_required(login_url='login')  # redirects to login if user is not logged in
+def write_prescription_view(request, pk):
+    """
+    This view is for a doctor to write a prescription.
+
+    :param request: the HttpRequest
+    :param pk: the primary key of the appointment to update
+    :return: a rendered page
+
+    This view is only accessible to logged in users who are doctors.
+    Doctors will be able to write a prescription from this page.
+    """
+    appointment = AppointmentModel.objects.get(id=pk) # get current appointment from id
+
+    form = PrescriptionForm() # create a new form
+    if request.method == 'POST': # If the form has been submitted...
+        form = PrescriptionForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            print("valid")
+            prescription = form.save(commit=False) # create a new prescription
+            prescription.appointment = appointment # add appointment to prescription
+            prescription.save() # save prescription
+
+            appointment.is_completed = True # set appointment to complete
+            appointment.save() # save appointment
+            return redirect('appointment-detail', appointment.id) # redirect to appointment details page
+        else: # the form is not valid
+            context = { # create context to pass to frontend
+                'appointment': appointment,
+                'form': form,
+            }
+            return render(request, 'appointment/appointment-detail.html', context) # render the page
+
+    context = {
+        'appointment': appointment,
+        'form': form,
+    }
+    return render(request, 'appointment/write-prescription.html', context)

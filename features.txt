@@ -21,3 +21,7 @@ Final Phase:
 16. Paitents Can See their requested, upcoming and rejected appointments
 17. Doctors Can See the Upcoming Appointments and Completed appointments
 18. Patient Can Update the Appointment he has made
+19. Doctors can Update/Accept Appointment in their pending list
+20. Doctors reject appointment
+21. Patients can delete the appointments they have made
+22. 
