@@ -151,3 +151,32 @@ def delete_blood_request_view(request, pk):  # delete blood request
         'post': post,
     }
     return render(request,'blood_donation/blood-donation-request-delete.html',context)
+
+
+def users_requests_view(request, pk):  # users requests page
+    """
+    This view will show all the blood requests for a user.
+    parms: request, user id
+    returns: render of the page
+
+    This view will show all the blood requests for a specific user.
+    """
+    user = UserModel.objects.get(id=pk) # get the user
+    blood_requests = BloodRequestModel.objects.filter(user=user).order_by('-posted_on') # get all the blood requests of the user by order of posted date on descending order
+
+    paginator = Paginator(blood_requests, 16) # show 16 requests per page
+    page = request.GET.get('page', 1) # get the page number
+
+    try:
+        blood_requests = paginator.page(page) # get the requested page
+    except PageNotAnInteger: # if page is not an integer, deliver first page
+        blood_requests = paginator.page(1)
+    except EmptyPage: # if page is out of range, deliver last page of results
+        blood_requests = paginator.page(paginator.num_pages)
+
+    context = {
+        'user': user,
+        'blood_requests': blood_requests,
+    }
+    return render(request, 'blood_donation/user-requests.html', context)
+
