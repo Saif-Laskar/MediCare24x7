@@ -3,6 +3,8 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 
+from accounts.constants import BLOOD_GROUP_CHOICES, GENDER_CHOICES
+
 
 # User manager for the User Model
 class MyUserManager(BaseUserManager):
@@ -64,23 +66,6 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
 
 # Patient Model (Only for Patients / Patients' Profile)
 class PatientModel(models.Model):
-    GENDER_CHOICES = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other'),
-    ]
-
-    BLOOD_GROUP_CHOICES = [
-        ('A+', 'A+'),
-        ('A-', 'A-'),
-        ('B+', 'B+'),
-        ('B-', 'B-'),
-        ('AB+', 'AB+'),
-        ('AB-', 'AB-'),
-        ('O+', 'O+'),
-        ('O-', 'O-'),
-    ]
-
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)  # Patient Profile Picture
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
@@ -113,22 +98,6 @@ class SpecializationModel(models.Model):
 
 # Doctor Model (only for Doctors / Doctors' Profile)
 class DoctorModel(models.Model):
-    GENDER_CHOICES = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other'),
-    ]
-
-    BLOOD_GROUP_CHOICES = [
-        ('A+', 'A+'),
-        ('A-', 'A-'),
-        ('B+', 'B+'),
-        ('B-', 'B-'),
-        ('AB+', 'AB+'),
-        ('AB-', 'AB-'),
-        ('O+', 'O+'),
-        ('O-', 'O-'),
-    ]
     SpecializationModel= [
         ('Cardiology', 'Cardiology'),
         ('Dentistry', 'Dentistry'),

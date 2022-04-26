@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
+
+from pharmacy_control.models import MedicineCartModel
 from .models import *
 from .utils import *
 from .forms import *
@@ -93,6 +95,7 @@ def patient_signup_view(request):  # The patient signup page
             user.is_patient = True
             user.save()  # Save the user
             print(user)
+            MedicineCartModel.objects.create(user=user)  # Create a medicine cart for the user
             PatientModel.objects.create(
                 user=user
             )  # Create a patient model for the user
@@ -302,6 +305,7 @@ def add_doctor_view(request):  # The doctor signup page
             )  # Authenticate the user
             user.is_doctor = True
             user.save()  # Save the user
+            MedicineCartModel.objects.create(user=user)  # Create a medicine cart for the user
             DoctorModel.objects.create(user=user)  # Create a doctor record for the user
             messages.success(request, "Docotor Registration successfully registered!")
             return redirect("staff-dashboard")  # Redirect to the staff dashboard
