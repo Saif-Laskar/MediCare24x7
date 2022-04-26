@@ -19,7 +19,7 @@
             </div>
             <div class="col-lg-3 col-md-12">
                 {% if user.is_authenticated %}
-                <a href="#"
+                <a href="{% url 'blood-donation-post-request' %}"
                    class="btn btn-main btn-round-full text-center"><i
                         class="fa fa-plus"></i>
                     <span>Post New Blood Request</span>

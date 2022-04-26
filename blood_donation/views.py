@@ -34,3 +34,29 @@ def blood_donation_home_view(request):  # blood donation home page
     return render(request, 'blood_donation/blood-donation-home.html' ,context) # render the page to see all the requests
 
 
+def post_blood_request_view(request):  # post blood request
+    """
+    This view is the main page for the blood donation app.
+    parms: request
+
+    This view renders a form for the user to post a request for blood.
+
+    returns: render of the page    
+    """
+    task = "Post New" 
+    form = BloodRequestForm() # create a blank form
+
+    if request.method == 'POST': # if the form has been submitted
+        form = BloodRequestForm(request.POST) # create a form from the submitted data
+        if form.is_valid(): # check if the form is valid
+            blood_request = form.save(commit=False) # create a new blood request
+            blood_request.user = request.user # set the user to the current logged in user
+            blood_request.save() # save the blood request
+            return redirect('blood-donation-home') # redirect to the home page
+
+    context = { # context to pass to template
+        'task': task,
+        'form': form,
+    }
+    return render(request,'blood_donation/blood-donation-create-update-request.html',context)
+
