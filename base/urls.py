@@ -8,5 +8,7 @@ urlpatterns = [
     path("", include("accounts.urls")),
     path("", include("ambulance.urls")),
     path("pharmacy/", include("pharmacy_control.urls")),
+    path('', include('blood_donation.urls')),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

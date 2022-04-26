@@ -18,14 +18,26 @@
                 <li class="nav-item"><a class="nav-link" href="#">Articles</a></li>
                 {% if request.user.is_authenticated and request.user.is_doctor %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Appointments</a>
+                    <a class="nav-link" href="{%url 'doctor-all-appointments'%}">Appointments</a>
                 </li>
                 {% elif request.user.is_authenticated and request.user.is_patient %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Appointments</a>
+                    <a class="nav-link" href="{%url 'patient-all-appointments'%}">Appointments</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'pharmacy-home' %}">Pharmacy</a>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointments <i
+                            class="icofont-thin-down"></i></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                        <li><a class="dropdown-item" href="#">
+                            <i class="fa fa-calendar"></i>Appointment Requests</a></li>
+                        <li><a class="dropdown-item" href="#">
+                            <i class="fa fa-arrow-right"></i>Upcoming Appointments</a></li>
+                    </ul>
                 </li>
                 {% endif %}
 
@@ -35,18 +47,21 @@
                     <a class="nav-link" href="{% url 'staff-all-ambulance' %}">All Ambulance</a>
                 </li>
                 {% endif %}
+                {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02"
+                    <a class="nav-link dropdown-toggle" href="" id="dropdown02"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Emergency <i
                             class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                        <li><a class="dropdown-item" href="#">
-                            <i class="icofont-blood-drop"></i> Blood Donation</a></li>
+                        <li><a class="dropdown-item" href="{% url 'blood-donation-home' %}">
+                            <i class="icofont-blood-drop"></i>My Blood Donation Request</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users-requests' request.user.id %}">
+                            <i class="icofont-blood-drop"></i>Others Blood Request</a></li>
                         <li><a class="dropdown-item" href="{% url 'patient-available-abmulance' %}">
                             <i class="fas fa-hand-holding-medical"></i> Ambulnace Booking</a></li>
                     </ul>
                 </li>
-
+                {% endif %}
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown"
