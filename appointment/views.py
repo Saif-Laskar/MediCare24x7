@@ -266,3 +266,42 @@ def patient_delete_appointment_view(request,pk):
         'appointment':appointment,
     }
     return render(request, 'appointment/delete-appointment.html',context)
+
+
+@login_required(login_url='login')  # redirects to login if user is not logged in
+def write_prescription_view(request, pk):
+    """
+    This view is for a doctor to write a prescription.
+
+    :param request: the HttpRequest
+    :param pk: the primary key of the appointment to update
+    :return: a rendered page
+
+    This view is only accessible to logged in users who are doctors.
+    Doctors will be able to write a prescription from this page.
+    """
+    appointment = AppointmentModel.objects.get(id=pk) # get current appointment from id
+
+    form = PrescriptionForm() # create a new form
+    if request.method == 'POST': # If the form has been submitted...
+        form = PrescriptionForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            prescription = form.save(commit=False) # create a new prescription
+            prescription.appointment = appointment # add appointment to prescription
+            prescription.save() # save prescription
+
+            appointment.is_complete = True # set appointment to complete
+            appointment.save() # save appointment
+            return redirect('appointment-details', appointment.id) # redirect to appointment details page
+        else: # the form is not valid
+            context = { # create context to pass to frontend
+                'appointment': appointment,
+                'form': form,
+            }
+            return render(request, 'appointment/appointment-detail.html', context) # render the page
+
+    context = {
+        'appointment': appointment,
+        'form': form,
+    }
+    return render(request, 'appointment/write-prescription.html', context)
