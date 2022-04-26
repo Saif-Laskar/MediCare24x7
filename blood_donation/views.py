@@ -106,3 +106,29 @@ def blood_request_detail_view(request, pk):  # blood request detail page
     }
     return render(request,'blood_donation/blood-donation-request-details.html',context)
 
+
+
+def update_blood_request_view(request, pk):  # update blood request
+    """
+    This view will show the details of a specific blood request.
+    parms: request, user id
+    returns: render of the page
+
+    This view will show a form for the user to update a specific blood request.
+    """
+    task = "Update"
+    post = BloodRequestModel.objects.get(id=pk) # get the blood request
+    form = BloodRequestForm(instance=post) # create a blank form
+    if request.method == 'POST': # if the form has been submitted
+        form = BloodRequestForm(request.POST, instance=post) # create a form from the submitted data
+        if form.is_valid(): # check if the form is valid
+            form.save() # save the form
+            return redirect('blood-donation-request-detail', post.id) # redirect to the request detail page
+        else: # if the form is not valid
+            return redirect('blood-donation-update-request', post.id) # redirect to the request update page
+    context = {
+        'task': task,
+        'post': post,
+        'form': form,
+    }
+    return render(request,'blood_donation/blood-donation-create-update-request.html',context)

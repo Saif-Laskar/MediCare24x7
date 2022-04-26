@@ -17,7 +17,7 @@
             </div>
             <div class="col-lg-3 col-md-12">
                 {% if my_post %}
-                <a href="#"
+                <a href="{% url 'blood-donation-update-request' post.id %}"
                    class="btn btn-main btn-round-full text-center">
                     <i class="far fa-edit"></i> Update Blood Request
                 </a>
