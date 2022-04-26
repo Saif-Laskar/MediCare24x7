@@ -68,7 +68,7 @@
                                         blood needed.</p>
                                     <p>Posted {{ post.posted_on|timesince }} ago</p>
                                     <div class="readmore_area">
-                                        <a href="#"
+                                        <a href="{% url 'blood-donation-request-detail' post.id %}"
                                            data-hover="Read More"><span>Read More</span></a>
                                     </div>
                                 </div>

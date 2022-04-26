@@ -60,3 +60,49 @@ def post_blood_request_view(request):  # post blood request
     }
     return render(request,'blood_donation/blood-donation-create-update-request.html',context)
 
+
+def blood_request_detail_view(request, pk):  # blood request detail page
+    """
+    This view will show the details of a specific blood request.
+    parms: request, user id
+    returns: render of the page
+
+    This view will show the details of a specific blood request, and functionality to activate or deactivate the request.
+
+    It will also show a map of the address where the blood is needed.
+    """
+    post = BloodRequestModel.objects.get(id=pk) # get the blood request
+    print(post.is_active)
+
+    my_post = False # set to false to show that this is not my post
+    if request.user.is_authenticated and post.user == request.user: # if the user is logged in and the user who posted the request is the logged in user
+        my_post = True # set to true to show that this is my post
+
+    location_link = "https://maps.google.com/maps?width=100%25&amp;height=450&amp;hl=en&amp;q=" # create a link to the google maps page with the latitude and longitude of the request
+
+    if post.location is not None: # if the location is not null
+        locations = post.location.split(' ') # split the location into latitude and longitude
+        location_link = "https://maps.google.com/maps?width=100%25&amp;height=450&amp;hl=en&amp;q=" 
+
+        for location in locations:
+            location_link += location + "%20"
+
+        location_link += "&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" #
+
+    if request.GET.get('disable_req'): # if the user has clicked the disable request button
+        post.is_active = False # set the is_active to false
+        post.save() # save the post
+        return redirect('blood-donation-request-detail', post.id) # redirect to the request detail page
+
+    if request.GET.get('activate_req'): # if the user has clicked the activate request button
+        post.is_active = True # set the is_active to true
+        post.save() # save the post
+        return redirect('blood-donation-request-detail', post.id) # redirect to the request detail page
+
+    context = { # context to pass to template
+        'post': post,
+        'my_post': my_post,
+        'location_link': location_link
+    }
+    return render(request,'blood_donation/blood-donation-request-details.html',context)
+
