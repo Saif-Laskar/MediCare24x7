@@ -113,7 +113,7 @@
                     <div class="card rounded">{{ prescriptions.description|linebreaks }}</div>
                 </div>
                 <div class="text-center">
-                    <a href="#" target="_blank"
+                    <a href="{%url 'pdf-view' appointment.id%}" target="_blank"
                        class="btn btn-success btn-round-full mt-3" type="submit">
                        
                         Download Prescription

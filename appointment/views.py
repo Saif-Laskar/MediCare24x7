@@ -5,6 +5,7 @@ import datetime
 from django.contrib import messages
 from accounts.models import *
 from .forms import *
+from .utils import render_to_pdf
 
 
 @login_required(login_url='login')
@@ -307,3 +308,34 @@ def write_prescription_view(request, pk):
         'form': form,
     }
     return render(request, 'appointment/write-prescription.html', context)
+
+
+@login_required(login_url='login')  # redirects to login if user is not logged in
+def pdf_view(request, pk):
+    """
+    This view is for a user (Patient or Doctor) to generate a PDF of a prescription.
+
+    :param request: the HttpRequest
+    :param pk: the primary key of the appointment
+    :return: a rendered page
+
+    This view is only accessible to logged in users.
+    Doctors or Patients can generate a PDF of a prescription from this page.
+    """
+    appointment = AppointmentModel.objects.get(id=pk)  # get current appointment from id
+
+    patient = PatientModel.objects.get(user=appointment.patient.user)  # get current patient from user
+
+    prescription = PrescriptionModel.objects.get(appointment=appointment)  # get current prescription from appointment
+
+    age = None
+    if patient.date_of_birth:  # if patient has a date of birth
+        age = calculate_age(patient.date_of_birth)  # calculate age
+
+    context = { # create context to pass to frontend
+        'age': age,
+        'appointment': appointment,
+        'prescription': prescription,
+    }
+    pdf = render_to_pdf('appointment/pdf.html', context)  # create HttpResponse object with PDF content
+    return HttpResponse(pdf, content_type='application/pdf')
