@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 
 from health_records.forms import RecordForm
 from health_records.models import HealthRecordModel
-from user_control.models import UserModel, PatientModel
+from accounts.models import UserModel, PatientModel
 
 def health_record_home_view(request, pk):
     """
