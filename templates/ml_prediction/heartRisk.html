@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Edit Profile{% endblock %}
+
+{% block content %}
+
+<section class="page-title bg-1">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block text-center">
+                    <span class="text-white">Heart Attack Risk Prediction</span>
+                </div>
+                {%if not msg%}
+                {% for message in messages%}
+    
+                <div class="alert alert-success">
+                <div class="mt-5 text-center">{{message}}</div>
+                </div>
+                {% endfor %}
+                {%elif msg%}
+                {% for message in messages%}
+    
+                <div class="alert alert-danger">
+                <div class="mt-5 text-center">{{message}}</div>
+                </div>
+                {% endfor %}
+                {%endif%}
+            
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container-fluid p-5">
+    
+    <div class="row">
+
+        <div class="col-lg-8 col-md-6">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <form class="p-3 border rounded" enctype="multipart/form-data"  method="post">
+                        <h3 class="text-center mb-3">Heart Attack Risk Parameters</h3>
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Age</label>
+                                    {{ form.age|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    {{ form.sex|add_class:"form-control" }}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Chest Pain Type</label>
+                                    {{ form.cp|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Resting Blood Pressure</label>
+                                    {{ form.trtbps|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>cholestoral(in mg/dl)</label>
+                                    {{ form.chol|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>fasting blood sugar(0=no,1=yes)</label>
+                                    {{ form.fbs|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Resting Electrocardiographic Results</label>
+                                    {{ form.restecg|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Maximum Heart Rate Achieved</label>
+                                    {{ form.thalachh|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Exercise Induced Angina</label>
+                                    {{ form.exang|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Previous Peak</label>
+                                    {{ form.oldpeak|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Slope</label>
+                                    {{ form.slp|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Number of Major Vessels </label>
+                                    {{ form.caa|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Thalassemia Rate</label>
+                                    {{ form.thal|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-main btn-round-full" type="submit">
+                                <i class="far fa-edit"></i><span> Check</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

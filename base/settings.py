@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'blood_donation',
     'health_records',
 
+    'ml_prediction',
+
     'widget_tweaks',
     'jazzmin',
     'mathfilters',
