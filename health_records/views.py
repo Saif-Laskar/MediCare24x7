@@ -68,3 +68,26 @@ def health_record_create_view(request):
         'form': form,
     }
     return render(request, "health-records/record-create-update.html", context) # renders a page to create a new record
+
+def health_record_detail_view(request, pk):
+    """
+    This view is the detail page for a record.
+    It lists all of the details for the record.
+
+    :param request: The request object
+    :param pk: The primary key of the record
+    :return: A rendered page
+    
+    """
+    record = HealthRecordModel.objects.get(id=pk) # Get the record from the id
+
+    my_record = False # If the user is the user logged in, set this to true
+    if request.user == record.patient.user: # If the user is the user logged in, set this to true
+        my_record = True # Set this to true
+
+    context = { # Set the context for the view
+        'record': record,
+        'my_record': my_record,
+    }
+    return render(request, "pages/health-records/record-details.html", context) # renders a page to show the record details
+    
