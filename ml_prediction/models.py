@@ -14,9 +14,10 @@ class HeartAttackRiskModel(models.Model):
     ]
 
     CP=[
-        (1,'Normal'),
-        (2,'Medium'),
-        (3,'Extreme')
+        (0,'Typical Angina'),
+        (1,'Atypical Angina'),
+        (2,'Non-anginal pain'),
+        (3,'Asymptomatic')
     ]
 
     FBS=[
@@ -33,16 +34,37 @@ class HeartAttackRiskModel(models.Model):
         (1,'YES'),
         (0,'NO')
     ]
+    SLP=[
+        (0,'0'),
+        (1,'1'),
+        (2,'2'),
+    ]
+
+    CAA=[
+        (0,'0'),
+        (1,'1'),
+        (2,'2'),
+        (3,'3'),
+        (4,'4'),
+    ]
+    THAL=[
+        (0,'0'),
+        (1,'1'),
+        (2,'2'),
+        (3,'3')
+    ]
 
 
-    age         = models.IntegerField(null= False, blank= False),
+    age         = models.IntegerField(null= False, blank= False)
     sex         = models.IntegerField(null=False,blank=False, choices=GENDER) # gender
-    CP          = models.IntegerField(null=False,blank=False, choices=CP) # chest paint type
+    cp          = models.IntegerField(null=False,blank=False, choices=CP) # chest paint type
     trtbps      = models.IntegerField(null=False,blank=False) # resting blood pressure (in mm Hg)
     chol        = models.IntegerField(null=False,blank=False) # cholestoral in mg/dl fetched via BMI sensor
     fbs         = models.IntegerField(null=False,blank=False, choices=FBS) # fasting blood sugar > 120 mg/dl
     restecg     = models.IntegerField(null=False,blank=False, choices= RESTECG) # resting electrocardiographic results
     thalachh     = models.IntegerField(null=False,blank=False) # maximum heart rate achieved
     exang       = models.IntegerField(null=False,blank=False, choices=EXANG) # exercise induced angina
-    oldpeak     = models.IntegerField(null=False,blank=False) # ST depression induced by exercise relative to rest
-
+    oldpeak     = models.FloatField(null=False,blank=False) # ST depression induced by exercise relative to rest
+    slp         = models.IntegerField(null=False,blank=False,choices=SLP) # slope of the peak exercise ST segment
+    caa         = models.IntegerField(null=False,blank=False,choices=CAA) # number of major vessels (0-3) colored by flourosopy
+    thal        = models.IntegerField(null=False,blank=False, choices= THAL) # thalassemia
