@@ -90,3 +90,30 @@ def health_record_detail_view(request, pk):
         'my_record': my_record,
     }
     return render(request, "health-records/record-details.html", context) # renders a page to show the record details
+
+def health_record_update_view(request, pk):
+    """
+    This view is the detail page for a record.
+    It populates the form with all of the details for the record.
+
+    :param request: The request object
+    :param pk: The primary key of the record
+    :return: A rendered page
+
+    This view will show a form to update a record.
+    """
+    task = "Update"
+    record = HealthRecordModel.objects.get(id=pk) # Get the record from the id
+
+    form = RecordForm(instance=record) # An unbound form
+    if request.method == 'POST': # If the form has been submitted...
+        form = RecordForm(request.POST, instance=record) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            form.save() # Save the record
+            return redirect('health-record-post-detail', record.id) # Redirect after POST
+    context = { # Set the context for the view
+        'record': record,
+        'task': task,
+        'form': form,
+    }
+    return render(request, "health-records/record-create-update.html", context) # renders a page to update a record
