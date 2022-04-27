@@ -50,5 +50,3 @@ class TestAmbulanceView(TestCase):
         response = self.client.get(reverse('staff-booked-ambulance'))
         self.assertEquals(response.status_code,302)
         self.assertRedirects(response, '/accounts/login?next=%2Fstaff-booked-ambulance%2F')
-    
-    
