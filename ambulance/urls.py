@@ -11,5 +11,6 @@ urlpatterns=[
     path('ambulance-booking/<str:pk>', ambulance_booking_view,name= 'ambulance-booking'),
 
     path('cinfirm-ambulance-booking/<str:pk>', confirm_ambulance_booking_view, name='cinfirm-ambulance-booking'),
+    path('staff-available-ambulance/', staff_available_ambulance_view, name='staff-available-ambulance'),
 
 ]
