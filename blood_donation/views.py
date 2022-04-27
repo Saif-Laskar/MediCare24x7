@@ -5,8 +5,12 @@ from blood_donation.forms import BloodRequestForm
 from blood_donation.models import BloodRequestModel
 from accounts.models import UserModel
 
+from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
+@login_required(login_url="login")
 def blood_donation_home_view(request):  # blood donation home page
     """
     This view is the main page for the blood donation app.
@@ -34,6 +38,7 @@ def blood_donation_home_view(request):  # blood donation home page
     return render(request, 'blood_donation/blood-donation-home.html' ,context) # render the page to see all the requests
 
 
+@login_required(login_url="login")
 def post_blood_request_view(request):  # post blood request
     """
     This view is the main page for the blood donation app.
@@ -60,7 +65,7 @@ def post_blood_request_view(request):  # post blood request
     }
     return render(request,'blood_donation/blood-donation-create-update-request.html',context)
 
-
+@login_required(login_url="login")
 def blood_request_detail_view(request, pk):  # blood request detail page
     """
     This view will show the details of a specific blood request.
@@ -107,7 +112,7 @@ def blood_request_detail_view(request, pk):  # blood request detail page
     return render(request,'blood_donation/blood-donation-request-details.html',context)
 
 
-
+@login_required(login_url="login")
 def update_blood_request_view(request, pk):  # update blood request
     """
     This view will show the details of a specific blood request.
@@ -134,6 +139,7 @@ def update_blood_request_view(request, pk):  # update blood request
     return render(request,'blood_donation/blood-donation-create-update-request.html',context)
 
 
+@login_required(login_url="login")
 def delete_blood_request_view(request, pk):  # delete blood request
     """
     This view will delete a specific blood request.
@@ -153,6 +159,7 @@ def delete_blood_request_view(request, pk):  # delete blood request
     return render(request,'blood_donation/blood-donation-request-delete.html',context)
 
 
+@login_required(login_url="login")
 def users_requests_view(request, pk):  # users requests page
     """
     This view will show all the blood requests for a user.
