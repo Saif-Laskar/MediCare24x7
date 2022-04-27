@@ -142,7 +142,7 @@ def ambulance_booking_view(request, pk):
             ambulance.save()
             booking.save()
             # return redirect('booking-details', booking.id)
-            return redirect("patient-dashboard")
+            return render(request, "ambulance/confirm-ambulance.html")
 
         else:
             context = {
@@ -158,3 +158,8 @@ def ambulance_booking_view(request, pk):
         "ambulance": ambulance,
     }
     return render(request, "ambulance/ambulance-booking.html", context)
+
+
+@login_required(login_url="login")
+def confirm_ambulance_booking_view(request, pk):
+    return redirect("home")
