@@ -7,5 +7,6 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('ambulance.urls')),
     path('', include('appointment.urls')),
+    path('', include('health_records.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

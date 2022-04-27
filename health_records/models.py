@@ -1,6 +1,6 @@
 from django.db import models
 
-from user_control.models import PatientModel
+from accounts.models import PatientModel
 
 
 class HealthRecordModel(models.Model):
