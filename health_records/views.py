@@ -3,11 +3,13 @@ from django.shortcuts import render
 # Create your views here.
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from health_records.forms import RecordForm
 from health_records.models import HealthRecordModel
 from accounts.models import UserModel, PatientModel
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="login")
 def health_record_home_view(request, pk):
     """
     This view is the main page for the user.
@@ -42,6 +44,8 @@ def health_record_home_view(request, pk):
     }
     return render(request, "health-records/record-home.html", context)
 
+
+@login_required(login_url="login")
 def health_record_create_view(request):
     """
     A view to create a new record.
@@ -69,6 +73,8 @@ def health_record_create_view(request):
     }
     return render(request, "health-records/record-create-update.html", context) # renders a page to create a new record
 
+
+@login_required(login_url="login")
 def health_record_detail_view(request, pk):
     """
     This view is the detail page for a record.
@@ -91,6 +97,8 @@ def health_record_detail_view(request, pk):
     }
     return render(request, "health-records/record-details.html", context) # renders a page to show the record details
 
+
+@login_required(login_url="login")
 def health_record_update_view(request, pk):
     """
     This view is the detail page for a record.
@@ -118,6 +126,8 @@ def health_record_update_view(request, pk):
     }
     return render(request, "health-records/record-create-update.html", context) # renders a page to update a record
 
+
+@login_required(login_url="login")
 def health_record_delete_view(request, pk):
     """
     This view is the detail page for a record.
