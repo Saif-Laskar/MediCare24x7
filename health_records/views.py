@@ -42,3 +42,29 @@ def health_record_home_view(request, pk):
     }
     return render(request, "health-records/record-home.html", context)
 
+def health_record_create_view(request):
+    """
+    A view to create a new record.
+
+    :param request: The request object
+    :return: A rendered page
+
+    This view will show a form to create a new record.    
+    """
+    task = "Create New"
+    form = RecordForm() # An unbound form
+    patient = PatientModel.objects.get(user=request.user) # Get the patient from the user_id
+
+    if request.method == 'POST': # If the form has been submitted...
+        form = RecordForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            record = form.save(commit=False) # Create a new record
+            record.patient = patient # Set the patient to the patient logged in
+            record.save() # Save the record
+            return redirect('health-record-home', request.user.id) # Redirect after POST
+
+    context = { # Set the context for the view
+        'task': task,
+        'form': form,
+    }
+    return render(request, "health-records/record-create-update.html", context) # renders a page to create a new record
