@@ -1,30 +1,18 @@
 from django.db import models
 
-# Create your models here.
-from accounts.models import *
+from user_control.models import PatientModel
 
 
-class AdviceModel(models.Model):
+class HealthRecordModel(models.Model):
     """
-    This class represents the Advice model.
-    This class is responsible for creating the data model for the Advice model.
-
-    Attributes:
-        author: The user who created the advice.
-        title: The title of the advice.
-        content: The description of the advice.
-        image: The image of the advice.
-        date_posted: The date and time when the advice was created.
-        slug: The unique identifier of the advice.
-        totalViewCount: The total number of views of the advice.
+    This class represents the Health Record Model.
+    This model contains these attributes:
+    - patient: ForeignKey to the PatientModel
+    - title: The title of the health record
+    - content: The content of the health record
+    - posted_on: The date the health record was posted
     """
-    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    patient = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    image = models.ImageField(null=True, blank=True)
-    date_posted = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(unique=True)
-    totalViewCount = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.title
+    posted_on = models.DateTimeField(auto_now_add=True)

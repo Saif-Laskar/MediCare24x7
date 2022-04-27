@@ -117,3 +117,4 @@ def health_record_update_view(request, pk):
         'form': form,
     }
     return render(request, "health-records/record-create-update.html", context) # renders a page to update a record
+
