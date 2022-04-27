@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - {{ record.title }}{% endblock %}
+
+{% block content %}
+
+<section class="page-title bg-1">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block text-center">
+                    <span class="text-white">Record Details</span>
+                    <h1 class="text-capitalize mb-5 text-lg">{{ record.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section blog-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12 mb-5">
+                        <div class="single-blog-item">
+
+                            <div class="blog-item-content mt-5">
+                                <h2 class="mb-4 text-md">{{ record.title }}</h2>
+
+                                <p class="lead mb-4">{{ record.content|linebreaks }}</p>
+
+                                <div class="blog-item-meta mb-3">
+                                    <span class="text-black text-capitalize mr-3">
+                                        <i class="icofont-calendar mr-2"></i> {{ record.posted_on }}
+                                    </span>
+
+                                    <a href="{% url 'patient-profile' record.patient.user.id %}"
+                                       class="text-capitalize mr-3">
+                                        <i class="fa fa-user mr-2"></i> {{ record.patient.user.name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sidebar-wrap pl-lg-4 mt-5 mt-lg-0">
+                    {% if my_record %}
+                    <div class="row m-3">
+                        <a class="btn btn-primary btn-round-full"
+                           href="{% url 'health-record-post-update' record.id %}">
+                            <i class="far fa-edit"></i> Update Record
+                        </a>
+                    </div>
+                    <div class="row m-3">
+                        <a class="btn btn-danger btn-round-full"
+                           href="{% url 'health-record-post-delete' record.id %}">
+                            <i class="fa fa-trash"></i> Delete Record
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
