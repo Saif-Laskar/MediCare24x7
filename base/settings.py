@@ -23,10 +23,13 @@ INSTALLED_APPS = [
     'accounts',
     'ambulance',
     'appointment',
+    'pharmacy_control',
+    'blood_donation',
     'health_records',
 
     'widget_tweaks',
     'jazzmin',
+    'mathfilters',
 
 
     'django.contrib.admin',
