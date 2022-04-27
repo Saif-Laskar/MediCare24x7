@@ -40,5 +40,5 @@ def health_record_home_view(request, pk):
         'records': records,
         'is_self': is_self
     }
-    return render(request, "pages/health-records/record-home.html", context)
-    
+    return render(request, "health-records/record-home.html", context)
+
