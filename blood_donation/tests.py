@@ -3,7 +3,6 @@ from django.urls import reverse
 from .models import *
 import json
 
-
 class TestingBloodDonation(TestCase):
 
     def test_blood_donation_home_view(self):
