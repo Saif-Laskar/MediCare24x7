@@ -7,8 +7,9 @@ from pharmacy_control.forms import OrderForm
 
 from pharmacy_control.models import *
 from pharmacy_control.utils import cartItemToOrderItem
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url="login")
 def pharmacy_home_view(request):
     sections = MedicineSectionModel.objects.all()
     medicines = MedicineModel.objects.filter(is_available=True)
@@ -77,6 +78,8 @@ def pharmacy_home_view(request):
     return render(request, "pharmacy/pharmacy_home.html", context)
 
 
+
+@login_required(login_url="login")
 def pharmacy_medicine_view(request, medicine_id):
     medicine = MedicineModel.objects.get(id=medicine_id)
 
@@ -256,7 +259,9 @@ def confirm_order(request, pk):  # Confirm Order Page
         request, "pharmacy/confirm-order.html", context
     )  # Render the page with the context
 
-
+@login_required(
+    login_url="login"
+)
 def order_details(request, pk):  # Order Details Page
     cart = MedicineCartModel.objects.get(
         user=request.user
