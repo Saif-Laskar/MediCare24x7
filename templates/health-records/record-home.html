@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - Health Records{% endblock %}
+
+{% block content %}
+
+<section class="page-title bg-1">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block text-center">
+                    <h1 class="text-capitalize mb-5 text-lg">Health Records</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section blog-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                {% if is_self %}
+                <a href="{% url 'health-record-create' %}"
+                   class="btn btn-success btn-round-full m-3"><i
+                        class="fa fa-plus"></i>
+                    <span> Create New Record</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="row">
+
+                    {% if not records %}
+                    <h3 class="mx-3">No records yet</h3>
+                    {% endif %}
+
+                    {% for record in records %}
+                    <div class="col-lg-12 col-md-12 mb-5">
+                        <div class="blog-item">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <a href="{% url 'health-record-post-detail' record.id %}">
+                                        <img src="{% static 'images/placeholders/article-image-placeholder.jpg' %}"
+                                             alt="{{ record.title }}"
+                                             class="img-fluid">
+                                    </a>
+                                    <div class="blog-item-meta mb-3 mt-4">
+                                        <span class="text-black text-capitalize mr-3">
+                                            <i class="icofont-calendar mr-1"></i> {{ record.posted_on }}
+                                        </span>
+
+                                        <a href="{% url 'patient-profile' record.patient.user.id %}"
+                                           class="text-capitalize mr-3">
+                                            <i class="fa fa-user mr-2"></i> {{ record.patient.user.name }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="blog-item-content">
+                                        <h3 class="mt-3 mb-3">
+                                            <a href="{% url 'health-record-post-detail' record.id %}">
+                                                {{ record.title }}
+                                            </a>
+                                        </h3>
+
+                                        <p class="mb-4">{{ record.content|truncatechars:250 }}</p>
+
+                                        <a href="{% url 'health-record-post-detail' record.id %}"
+                                           class="btn btn-main btn-icon btn-round-full">
+                                            Read More <i class="icofont-simple-right ml-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        {% if records.has_other_pages %}
+        <div class="row mt-5">
+            <div class="col-lg-8">
+                <nav class="pagination py-2 d-inline-block">
+                    <div class="nav-links">
+                        {% if records.has_previous %}
+                        <a class="page-numbers" href="?page={{ records.previous_page_number }}">
+                            <i class="icofont-thin-double-left"></i>
+                        </a>
+                        {% endif %}
+
+                        {% for i in records.paginator.page_range %}
+                        {% if records.number == i %}
+                        <span aria-current="page" class="page-numbers current">{{ i }}</span>
+                        {% else %}
+                        <a class="page-numbers" href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if records.has_next %}
+                        <li>
+                            <a class="page-numbers" href="?page={{ records.next_page_number }}">
+                                <i class="icofont-thin-double-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

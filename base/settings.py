@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'appointment',
     'pharmacy_control',
     'blood_donation',
-
+    'health_records',
 
     'widget_tweaks',
     'jazzmin',

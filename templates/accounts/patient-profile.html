@@ -103,7 +103,7 @@
                         {% endif %}
 
                         {% if is_self and has_access %}
-                        <a href="#"
+                        <a href="{% url 'health-record-home' user.id %}"
                            class="btn btn-main btn-round-full m-3">
                             <i class="fas fa-notes-medical"></i>  Health Records
                         </a>
