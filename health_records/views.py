@@ -118,3 +118,24 @@ def health_record_update_view(request, pk):
     }
     return render(request, "health-records/record-create-update.html", context) # renders a page to update a record
 
+def health_record_delete_view(request, pk):
+    """
+    This view is the detail page for a record.
+    It deletes the record.
+
+    :param request: The request object
+    :param pk: The primary key of the record
+    :return: A rendered page
+
+    This view will show a form to delete a record.
+    """
+    record = HealthRecordModel.objects.get(id=pk) # Get the record from the id
+
+    if request.method == 'POST': # If the form has been submitted...
+        record.delete() # Delete the record
+        return redirect('health-record-home', request.user.id) # Redirect after POST
+
+    context = { # Set the context for the view
+        'record': record,
+    }
+    return render(request, "health-records/record-delete.html", context) # renders a page to delete a record
