@@ -57,7 +57,7 @@
 					<div class="doctor-profile">
 						<div class="medicine-img">
 							{% if medicine.image %}
-							<img src="{{ medicine.image.url }}" alt="{{ medicine.name }}" class="img-fluid w-100">
+							<img src="{{ medicine.image.url }}" alt="{{ medicine.name }}" class="img-fluid" style="height: 300px;">
 
 							{% else %}
 							<img src="{% static 'images/placeholders/user-placeholder.jpg' %}" alt="{{ medicine.name }}"

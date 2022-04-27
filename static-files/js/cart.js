@@ -2,8 +2,10 @@ var updateBtns = document.getElementsByClassName("update-cart");
 
 for (let i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener("click", function () {
-		var medicineID = this.dataset.food;
+		console.log(this.dataset);
+		var medicineID = this.dataset.medicine;
 		var action = this.dataset.action;
+		console.log("Here");
 		console.log("medicineID: ", medicineID, "action: ", action);
 
 		updateCart(medicineID, action);

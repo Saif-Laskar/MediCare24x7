@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load static %}{% load mathfilters %}
+{% load static %}
+{% load mathfilters %}
 
 {% block title %} - Cart{% endblock %}
 
@@ -84,13 +85,13 @@
 						</div>
 						<div class="col-lg-3 align-items-center" style="flex: 2">
 							<div class="text-center">
-								<img class="update-cart" data-food="{{ item.medicine.id }}" data-action="add"
+								<img class="update-cart" data-medicine="{{ item.medicine.id }}" data-action="add"
 									src="{% static 'images/arrow-up.png' %}"
 									style="width: 25px; height: 25px; cursor: pointer;">
 
 								<span class="quantity h4">{{ item.quantity }}</span>
 
-								<img class="update-cart" data-food="{{ item.medicine.id }}" data-action="remove"
+								<img class="update-cart" data-medicine="{{ item.medicine.id }}" data-action="remove"
 									src="{% static 'images/arrow-down.png' %}"
 									style="width: 25px; height: 25px; cursor: pointer;">
 							</div>
