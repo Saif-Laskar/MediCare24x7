@@ -89,5 +89,4 @@ def health_record_detail_view(request, pk):
         'record': record,
         'my_record': my_record,
     }
-    return render(request, "pages/health-records/record-details.html", context) # renders a page to show the record details
-    
+    return render(request, "health-records/record-details.html", context) # renders a page to show the record details
