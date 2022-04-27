@@ -8,6 +8,10 @@ urlpatterns=[
 
     path('ambulance/edit-ambulance-details/<str:pk>', edit_ambulance_view, name='edit-ambulance-details'),
     path('patient-available-abmulance/', patient_available_abmulance_view, name='patient-available-abmulance'),
-    path('ambulance-booking/<str:pk>', ambulance_booking_view,name= 'ambulance-booking')
+    path('ambulance-booking/<str:pk>', ambulance_booking_view,name= 'ambulance-booking'),
+
+    path('cinfirm-ambulance-booking/<str:pk>', confirm_ambulance_booking_view, name='cinfirm-ambulance-booking'),
+    path('staff-available-ambulance/', staff_available_ambulance_view, name='staff-available-ambulance'),
+    path('staff-booked-ambulance/', staff_booked_ambulance_view, name='staff-booked-ambulance'),
 
 ]

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.contrib import messages
 from accounts.models import *
+from accounts.utils import calc_age
 from .forms import *
 from .utils import render_to_pdf
 
@@ -330,8 +331,10 @@ def pdf_view(request, pk):
 
     age = None
     if patient.date_of_birth:  # if patient has a date of birth
-        age = calculate_age(patient.date_of_birth)  # calculate age
+        age = calc_age(patient.date_of_birth)  # calculate age
 
+    print(age)
+    print(appointment.patient)
     context = { # create context to pass to frontend
         'age': age,
         'appointment': appointment,

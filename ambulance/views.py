@@ -142,7 +142,7 @@ def ambulance_booking_view(request, pk):
             ambulance.save()
             booking.save()
             # return redirect('booking-details', booking.id)
-            return redirect("patient-dashboard")
+            return render(request, "ambulance/confirm-ambulance.html")
 
         else:
             context = {
@@ -158,3 +158,38 @@ def ambulance_booking_view(request, pk):
         "ambulance": ambulance,
     }
     return render(request, "ambulance/ambulance-booking.html", context)
+
+
+@login_required(login_url="login")
+def confirm_ambulance_booking_view(request, pk):
+    return redirect("home")
+
+@login_required(login_url="login")
+def staff_available_ambulance_view(
+    request,
+):  # staff-all-ambulance view, this view is for staff to view all ambulances
+    ambulances = Ambulance.objects.filter(
+        available=True
+    )  # get all ambulances from the database
+    context = {
+        "ambulances": ambulances,  # pass the ambulances to the context
+    }
+    return render(
+        request, "ambulance/staff-available-ambulance.html", context
+    )  # render the staff-all-ambulance.html template with the context
+
+
+@login_required(login_url="login")
+def staff_booked_ambulance_view(
+    request,
+):  # staff-all-ambulance view, this view is for staff to view all ambulances
+    ambulances = Ambulance.objects.filter(
+        available=False
+    )  # get all ambulances from the database
+    context = {
+        "ambulances": ambulances,  # pass the ambulances to the context
+    }
+    return render(
+        request, "ambulance/staff-booked-ambulance.html", context
+    )  # render the staff-all-ambulance.html template with the context
+    

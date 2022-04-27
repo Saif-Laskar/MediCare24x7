@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - Order Confirmed{% endblock %}
+{% block content %}
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block text-center">
+					<h1 class="text-capitalize mb-5 text-lg">Ambulance Confirmed</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section doctors">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<img src="{% static 'images/green-tick-icon.png' %}" style="height: 150px; width: 150px" />
+				<p style="font-size: 35px">Thank You</p>
+				<p style="font-size: 35px">Ambulance is Booked</p>
+				<p style="font-size: 30px">We will contract with you as soon as possible!!!!!</p>
+				
+				<div class="text-center">
+					<button class="btn btn-main btn-round-full" type="submit" >
+						<a href="{% url 'home'  %}">Back To Home</span>
+					</button>
+				</div>
+				
+
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

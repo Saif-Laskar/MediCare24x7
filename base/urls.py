@@ -8,6 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("accounts.urls")),
     path("", include("ambulance.urls")),
+    path("appointment/", include("appointment.urls")),
     path("pharmacy/", include("pharmacy_control.urls")),
     path('', include('blood_donation.urls')),
     path('', include('appointment.urls')),
