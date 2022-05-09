@@ -31,50 +31,49 @@
                     {% csrf_token %}
 
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Emergency Contact</label>
-                                {{ form.patientContact|add_class:"form-control" }}
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label style="color: #004DFF">Enter destination Address</label>
-                                {{ form.destination|add_class:"form-control" }}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label style="color: #004DFF">Emergency?</label>
+                                <label style="color: #e20101">Emergency?</label>
                                 {{ form.is_emergency|add_class:"form-control" }}
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Date</label>
+                                <label style="color: #000000">Emergency Contact</label>
+                                {{ form.patientContact|add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Enter destination Address</label>
+                                {{ form.destination|add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="color: #000000">Date</label>
                                 {{ form.date|add_class:"form-control" }}
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Pickup Time</label>
+                                <label style="color: #000000">Pickup Time</label>
                                 {{ form.time|add_class:"form-control" }}
                             </div>
                         </div>
                     </div>
 
-                    
                     {{ form.non_field_errors }}
 
 
