@@ -43,7 +43,7 @@ def heart_attack_risk_home_view(request):
                 msg=users_test(mlp, user_test)
 
                 if not msg:
-                    messages.success(request, "Patient Has no/less Heart Attack Risk. But, Suggest Patient follow heart health rules")
+                    messages.success(request, "Patient Has no/less Heart Attack Risk. But, Suggest Patient to follow heart health rules")
                 elif msg:
                     messages.error(request, "Patient has Heart Attack Risk!!")
                 context={
