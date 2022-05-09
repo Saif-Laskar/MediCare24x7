@@ -1,4 +1,4 @@
-# 412Project
+# CSE-412Project
 This is a Telemedicine project using Python Django framework.
 
 This project is done by the following members:
@@ -15,6 +15,6 @@ Dhaka-1212, Bangladesh
 
 
 Under the Faculty of:
-    Md. Mohsin Uddin
+    Md. Mohsin Uddin 
     Senior Lecturer
     Department of Computer Science & Engineering
