@@ -1,11 +1,20 @@
 # 412Project
 This is a Telemedicine project using Python Django framework.
 
-Wednesday: (Saif) BasicUserModel, PatientProfileModel, login system, signup system pushed in master branch
+This project is done by the following members:
+    1. MD. Saif Laskar          - 2018-2-60-085 
+    2. Ikramul Haque            - 2018-2-60-058
+    3. Navid Rahman             - 2018-2-60-088
+    4. MD. Azizul Hakim         - 2018-2-60-052
 
-Wednesday: (Saif) BasicUserModel, PatientProfileModel, login system, signup system pushed in master branch.sssssssss
+University:
+East West University,
+A/2, Jahurul Islam Avenue
+Jahurul Islam City, Aftabnagar
+Dhaka-1212, Bangladesh
 
-ASDF1234asdf
 
-git update-ref -d MERGE_HEAD
-
+Under the Faculty of:
+    Md. Mohsin Uddin
+    Senior Lecturer
+    Department of Computer Science & Engineering
